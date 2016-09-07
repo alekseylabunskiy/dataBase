@@ -64,7 +64,7 @@
 <?php endif; ?>
         <?php if (!empty($content)):?>
             <?php echo $content; ?>
-        <?endif;?>
+        <?php endif;?>
     </div>
 </div>
 </body>
