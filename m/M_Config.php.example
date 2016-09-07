@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * конфигупация подключения к БД
+ */
+class M_Config
+{
+    protected $host = '';
+    protected $user = '';
+    protected $password = '';
+    protected $nameDB = '';
+}
