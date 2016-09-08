@@ -60,8 +60,8 @@ class M_Users
             return false;
         }
 
-        setcookie('email',$email,time() + 3600 * 60 * 60);
-        setcookie('password',md5($password),time() + 3600 * 60 * 60);
+        setcookie('email',$email,time() + 3600 * 24 * 7);
+        setcookie('password',md5($password),time() + 3600 * 24 * 7);
 
         $this->sid = $this->OpenSession($id_user);
 
@@ -331,6 +331,20 @@ class M_Users
         return $permissions_final;
     }
 
+    protected function getAllPrivs($privs)
+    {
+        $result = [];
+        if (is_array($privs)) {
+
+            foreach ($privs as $key => $value) {
+                foreach ($value as $keys => $values) {
+                    $result[] = $values;
+                }
+            }
+        }
+        return $result;
+    }
+
     /*
      * Все потомки роли
      */
@@ -361,24 +375,6 @@ class M_Users
                 $this->getChildrenRecursive($child, $childrenList, $result);
             }
         }
-    }
-
-    /*
-     *
-     */
-
-    protected function getAllPrivs($privs)
-    {
-        $result = [];
-        if (is_array($privs)) {
-
-            foreach ($privs as $key => $value) {
-                foreach ($value as $keys => $values) {
-                    $result[] = $values;
-                }
-            }
-        }
-        return $result;
     }
 
     /*
