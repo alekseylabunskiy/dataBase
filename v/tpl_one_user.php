@@ -24,7 +24,7 @@
                         <?php foreach ($roles as $role): ?>
                             <option value="<?php echo $role['role_id']?>"><?php echo $role['role_name']?></option>
                         <?php endforeach; ?>
-                    <? endif; ?>
+                    <?php endif; ?>
                 </select>
             </div>
             <button type="submit" id="confUserData" class="btn btn-success" name="u_send">Отправить</button>

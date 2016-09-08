@@ -5,9 +5,3 @@ $('.conf-delete').click(function (event) {
     }
 });
 
-//подтверждение на удаление ролі
-$('.conf-delete-role').click(function (event) {
-    if (!confirm('Ви дійсно хочете видалити цю Роль?')){
-        event.preventDefault();
-    }
-});

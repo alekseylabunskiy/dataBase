@@ -42,6 +42,12 @@ abstract class C_Base extends C_Controller
         //Очищаем старые сесии
         $this->mUser->ClearSessions();
 
+        //logout
+        if (isset($_GET['logout'])) {
+            $this->mUser->Logout();
+            header("Location:index.php?c=login");
+        }
+
         //Получаем пользователя
         $this->user = $this->mUser->Get();
 
@@ -51,12 +57,6 @@ abstract class C_Base extends C_Controller
         }
         //Проверяем разрешения пользователя
         $this->permissions = $this->mUser->getAllPrivsCurrentUser($this->user['role_id']);
-
-        //logout
-        if (isset($_GET['logout'])) {
-            $this->mUser->Logout();
-            header("Location:index.php");
-        }
     }
 
     protected function OnOutput()

@@ -14,6 +14,7 @@
     <script defer src="/v/js/createUserFormValidation.js"></script>
     <script defer src="/v/js/functions.js"></script>
     <script defer src="/v/js/setUserStatus.js"></script>
+    <script defer src="/v/js/setRoleToPriv.js"></script>
 </head>
 <body>
 <?php  if (!empty($currentUser)): ?>
@@ -64,7 +65,7 @@
 <?php endif; ?>
         <?php if (!empty($content)):?>
             <?php echo $content; ?>
-        <?endif;?>
+        <?php endif; ?>
     </div>
 </div>
 </body>

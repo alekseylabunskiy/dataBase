@@ -60,6 +60,9 @@ class M_Users
             return false;
         }
 
+        setcookie('email',$email,time() + 3600 * 60 * 60);
+        setcookie('password',md5($password),time() + 3600 * 60 * 60);
+
         $this->sid = $this->OpenSession($id_user);
 
         return true;
@@ -128,6 +131,12 @@ class M_Users
 
     public function Logout()
     {
+        setcookie('login', '', time() - 1);
+        setcookie('password', '', time() - 1);
+        setcookie('email', '', time() - 1);
+        unset($_COOKIE['login']);
+        unset($_COOKIE['password']);
+        unset($_COOKIE['email']);
         unset($_SESSION['sid']);
         $this->sid = null;
         $this->uid = null;
@@ -641,6 +650,15 @@ class M_Users
         if (!empty($user_id)){
             $query = "SELECT roles.role_name,roles.role_id FROM roles,users WHERE users.user_id = $user_id AND users.role_id = roles.role_id";
             return $this->msql->Select($query);
+        }
+        return false;
+    }
+    /*
+     * Меняем роль у привелегии
+     */
+    public function setRoleToPriv($priv,$role){
+        if (!empty($priv) && !empty($role)) {
+            return $this->msql->Update('privs2roles',['role_id' => $role],"priv_id = $priv");
         }
         return false;
     }

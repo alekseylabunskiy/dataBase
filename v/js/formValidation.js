@@ -2,7 +2,6 @@
  * Провряет валидность введенных значений адреса ел. почты и пароля
  *
  */
-
 var button = document.getElementById('login_btn');
 
 button.addEventListener("click", function(event) {

@@ -15,12 +15,6 @@
                 <?php if (isset($one_person)) {echo $one_person['user_email'];} ?>
             </div>
         </div>
-        <label>Пароль</label>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <?php if (isset($one_person)) {echo $one_person['password'];} ?>
-            </div>
-        </div>
         <label>Роль</label>
         <div class="panel panel-default">
             <div class="panel-body">

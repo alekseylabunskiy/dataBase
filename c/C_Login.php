@@ -20,7 +20,7 @@ class C_Login extends C_Base
 
         if ($this->user != null) {
             $this->mUser->Logout();
-            header('location:index.php?c=login');
+            header('location:index.php');
         }
 
         $this->mErrors->clearErrorSessions();
