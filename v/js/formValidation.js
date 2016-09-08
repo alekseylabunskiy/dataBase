@@ -2,12 +2,14 @@
  * Провряет валидность введенных значений адреса ел. почты и пароля
  *
  */
-var button = document.getElementById('login_btn');
+if (document.getElementById('login_btn') != null) {
+    var button = document.getElementById('login_btn');
 
-button.addEventListener("click", function(event) {
-    checkEmail(event);
-    checkPassword(event);
-});
+    button.addEventListener("click", function (event) {
+        checkEmail(event);
+        checkPassword(event);
+    });
+}
 //-------------------------//
 //Проверяем валидность адреса почты
 

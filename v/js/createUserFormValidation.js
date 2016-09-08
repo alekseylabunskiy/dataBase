@@ -1,8 +1,9 @@
-var button = document.getElementById('create_user');
-
-button.addEventListener("click", function(event) {
-    checkPassword(event);
-});
+if (document.getElementById('create_user') != null) {
+    var button = document.getElementById('create_user');
+    button.addEventListener("click", function (event) {
+        checkPassword(event);
+    });
+}
 
 function checkPassword(event){
 

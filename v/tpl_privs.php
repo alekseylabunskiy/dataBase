@@ -34,7 +34,7 @@
                             <input hidden type="text" class="hiddenPriv" name="new_priv" title="" value="<?php echo $list['priv_id']?>">
                     </td>
                     <td>
-                            <button type="submit" class="btn btn-info change_role">Змінити</button>
+                            <button type="submit" class="btn btn-info change_role" data-toggle="modal" data-target="#myModal">Змінити</button>
                         </form>
                     </td>
                 </tr>
@@ -43,19 +43,15 @@
         </tbody>
     </table>
 </div>
-<!---
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle col-sm-7 col-md-offset-3" type="button"
-            data-toggle="dropdown"><? /*php echo $list['role_name']; ?>
-    </button>
-    <ul class="dropdown-menu">
-        <?/* if (isset($roles)): ?>
-            <?php foreach ($roles as $rolesList): ?>
-                <li>
-                    <a href="/index.php?c=privs&priv_id=<?php echo $list['priv_id'] ?>&id_role=<?php echo $rolesList['role_id']; ?>"><?php echo $rolesList['role_name']; ?></a>
-                </li>
-            <?php endforeach; ?>
-        <? endif; */ ?>
-    </ul>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Повідомлення</h4>
+            </div>
+            <div class="modal-body">Роль успішно змінено</div>
+            <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button></div>
+        </div>
+    </div>
 </div>
 
