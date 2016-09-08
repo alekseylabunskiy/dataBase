@@ -3,21 +3,34 @@
         <h3>Керування ролями</h3>
     </div>
 </div>
+<div class="panel panel-default col-md-2">
+    <div class="panel-body text-center">
+        <div>
+            <a href="index.php?c=roles&create_role"><button class="btn btn-info">Створити Роль</button></a>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <table class="table  table-bordered text-center">
             <thead>
             <tr>
-                <th class="text-center">Ім'я Ролі</th>
-                <th class="text-center">Опис</th>
+                <th class="text-center col-md-2">Ім'я Ролі</th>
+                <th class="text-center col-md-9">Опис</th>
+                <th class="text-center col-md-1">Дії</th>
             </tr>
             </thead>
             <tbody>
                 <?php if(isset($listRoles)): ?>
                     <?php foreach ($listRoles as $list): ?>
                         <tr>
-                            <td><?php echo $list['role_name']; ?></td>
-                            <td><?php echo $list['description']; ?></td>
+                            <td class="col-md-2"><?php echo $list['role_name']; ?></td>
+                            <td class="col-md-9"><?php echo $list['description']; ?></td>
+                            <td class="col-md-1"><a href="/index.php?c=roles&redact_role&role_id=<?php echo $list['role_id']; ?>" title="Редактировать"><span
+                                        class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="/index.php?c=roles&delete_id=<?php echo $list['role_id']; ?>" title="Удалить"><span
+                                        class="glyphicon glyphicon-trash conf-role-delete"></span></a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -25,47 +38,5 @@
         </table>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Створити Роль</h3>
-            </div>
-            <div class="panel-body">
-                <form action="/index.php?c=roles" method="post" role="form">
-                    <div class="form-group">
-                        <label for="name_new_role">Ім'я нової Ролі</label>
-                        <input class="form-control" type="text" name="name_new_role" title="Нова роль">
-                    </div>
-                    <div class="form-group">
-                        <label for="description_new_role">Опис нової Ролі</label>
-                        <input class="form-control" type="text" name="description_new_role" title="Опис">
-                    </div>
-                    <button class="btn btn-info" type="submit" name="create_new_role">Створити</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Видалити Роль</h3>
-            </div>
-            <div class="panel-body">
-                <form action="/index.php?c=roles" method="post" role="form">
-                    <select class="form-control" name="delete_role">
-                        <option selected></option>
-                        <?php if (isset($listRoles)): ?>
-                            <?php foreach ($listRoles as $list): ?>
-                                <option value="<?php echo $list['role_id']?>"><?php echo $list['role_name']?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
-                    <br>
-                    <button class="btn btn-danger conf-delete-role" type="submit" name="del_role">Видалити</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 

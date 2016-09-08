@@ -69,8 +69,8 @@ class M_Users
     }
 
     /*
-     * Выход
-     */
+    * Определяем пользователя по email
+    */
 
     public function GetByLogin($email)
     {
@@ -81,8 +81,9 @@ class M_Users
     }
 
     /*
-     * получаем данные пользователя
-     */
+    * Открытие новой сессии
+    *  результат	- SID
+    */
 
     private function OpenSession($id_user)
     {
@@ -106,9 +107,10 @@ class M_Users
     }
 
     /*
-     * Определяем пользователя по email
+     * Генерация случайной последовательности
+     * $length 		- ее длина
+     * результат	- случайная строка
      */
-
     private function GenerateStr($length = 10)
     {
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789";
@@ -122,11 +124,7 @@ class M_Users
     }
 
     /*
-     *	 Проверка наличия привилегии
-     * $privsList 		- имя привилегии
-     * $id_user		- если не указан, значит, для текущего
-     * результат	- true или false
-     *
+     * Logout
      */
 
     public function Logout()
@@ -143,7 +141,7 @@ class M_Users
     }
 
     /*
-     * Добавляем дочерние роли
+     * Определяем пользователя
      */
 
     public function Get($id_user = null)
@@ -163,8 +161,9 @@ class M_Users
     }
 
     /*
-     * Получаем дочерние роли
-     */
+     * Получение id текущего пользователя
+     * результат	- UID
+    */
 
     public function GetUid()
     {
@@ -194,7 +193,8 @@ class M_Users
     }
 
     /*
-     * Рекурсивно находит всех "детей" роли
+     * Функция возвращает идентификатор текущей сессии
+     * результат	- SID
      */
 
     private function GetSid()
@@ -276,7 +276,7 @@ class M_Users
     }
 
     /*
-     * Все привелегии
+     * Определить роль
      */
 
     protected function getRole($id_user)
@@ -288,9 +288,7 @@ class M_Users
     }
 
     /*
-     * Проверка активности пользователя
-     *  $id_user		- идентификатор
-     * результат	- true если online
+     * Все разрешения Роли
      */
 
     public function getPermissionsByRole($roleId)
@@ -334,9 +332,8 @@ class M_Users
     }
 
     /*
-     * Получение id текущего пользователя
-     * результат	- UID
-    */
+     * Все потомки роли
+     */
 
     public function getChildrenList()
     {
@@ -353,8 +350,7 @@ class M_Users
     }
 
     /*
-     * Функция возвращает идентификатор текущей сессии
-     * результат	- SID
+     * Все потомки роли рекурсивно
      */
 
     protected function getChildrenRecursive($name, $childrenList, &$result)
@@ -368,8 +364,7 @@ class M_Users
     }
 
     /*
-     * Открытие новой сессии
-     *  результат	- SID
+     *
      */
 
     protected function getAllPrivs($privs)
@@ -387,9 +382,9 @@ class M_Users
     }
 
     /*
-     * Генерация случайной последовательности
-     * $length 		- ее длина
-     * результат	- случайная строка
+     * Проверка активности пользователя
+     *  $id_user		- идентификатор
+     * результат	- true если online
      */
 
     public function IsOnline($id_user)
@@ -459,7 +454,7 @@ class M_Users
     }
 
     /*
-     * Находим роль пользователя по его ID
+     * Вносим в базу нового пользователя
      */
 
     public function createUser($name, $email, $password, $role, $status, $avatar)
@@ -476,7 +471,7 @@ class M_Users
     }
 
     /*
-     * Вносим в базу нового пользователя
+     * Обновляем данные пользователя
      */
 
     public function UpdateUser($email, $pass,$role,$user_id)
@@ -541,6 +536,10 @@ class M_Users
 
     }
 
+    /*
+     * Все привелегии пользователя
+     */
+
     public function getAllPrivsCurrentUser($role_id)
     {
         $result = [];
@@ -550,6 +549,10 @@ class M_Users
         }
         return $result;
     }
+
+    /*
+     * Назначаем статус пользователя
+     */
 
     public function setStatus($id, $status)
     {
@@ -566,7 +569,7 @@ class M_Users
     }
 
     /*
-     * Функция назначения статуса пользователя
+     * Выбираем все роли
      */
 
     public function getListRoles()
@@ -575,6 +578,10 @@ class M_Users
 
         return $this->msql->Select($query);
     }
+
+    /*
+     * выбираем роли и привелегии
+     */
 
     public function getPrivsAndRoles()
     {
@@ -588,9 +595,8 @@ class M_Users
 
         return $result;
     }
-
     /*
-     * выбираем роли и привелегии
+     * Меняем Роль у привелегии
      */
 
     public function changeRolePremission($role, $priv)
@@ -603,7 +609,7 @@ class M_Users
     }
 
     /*
-     * Меняем роль
+     * Создаем роль
      */
 
     public function createRole($name, $description)
@@ -619,7 +625,7 @@ class M_Users
     }
 
     /*
-     * Создаем Роль
+     * Удаляем роль
      */
 
     public function deleteRole($role_id)
@@ -631,7 +637,64 @@ class M_Users
     }
 
     /*
-     * Удаляем роль
+     * Получаем роль пользователя
+     */
+
+    public function getOneUserRole($user_id){
+        if (!empty($user_id)){
+            $query = "SELECT roles.role_name,roles.role_id FROM roles,users WHERE users.user_id = $user_id AND users.role_id = roles.role_id";
+            return $this->msql->Select($query);
+        }
+        return false;
+    }
+    /*
+     * Назначаем Роль привелегии
+     */
+
+    public function setRoleToPriv($priv,$role){
+        if (!empty($priv) && !empty($role)) {
+            return $this->msql->Update('privs2roles',['role_id' => $role],"priv_id = $priv");
+        }
+        return false;
+    }
+
+    /*
+     * получаем роль пользователя
+     */
+
+    public function getOneRole($role_id){
+        if (!empty($role_id)){
+            return $this->msql->Select("SELECT * FROM roles WHERE role_id = '$role_id'");
+        }
+        return false;
+    }
+    /*
+     * Обновляем роль
+     */
+
+    public function updateRole($name, $description,$role_id){
+
+        if (!empty($name) && !empty($description)){
+
+            $name = $this->mFunctions->Clean($name);
+            $description = $this->mFunctions->Clean($description);
+
+            $origin_role = $this->msql->Select("SELECT * FROM roles WHERE role_id = '$role_id'");
+
+            if ($name != $origin_role[0]['role_name']){
+                $this->msql->Update('roles',['role_name' => $name],"role_id = $role_id");
+            }
+
+            if ($description != $origin_role[0]['description']){
+                $this->msql->Update('roles',['description' => $description],"role_id = $role_id");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * Добавить дочернюю роль
      */
 
     protected function addChild($parent, $child)
@@ -643,24 +706,4 @@ class M_Users
 
         return true;
     }
-    /*
-     * получаем роль пользователя
-     */
-    public function getOneUserRole($user_id){
-        if (!empty($user_id)){
-            $query = "SELECT roles.role_name,roles.role_id FROM roles,users WHERE users.user_id = $user_id AND users.role_id = roles.role_id";
-            return $this->msql->Select($query);
-        }
-        return false;
-    }
-    /*
-     * Меняем роль у привелегии
-     */
-    public function setRoleToPriv($priv,$role){
-        if (!empty($priv) && !empty($role)) {
-            return $this->msql->Update('privs2roles',['role_id' => $role],"priv_id = $priv");
-        }
-        return false;
-    }
-
 }
