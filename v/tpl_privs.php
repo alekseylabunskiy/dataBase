@@ -50,7 +50,7 @@
                 <h4 class="modal-title">Повідомлення</h4>
             </div>
             <div class="modal-body">Роль успішно змінено</div>
-            <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button></div>
+            <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Закрити</button></div>
         </div>
     </div>
 </div>

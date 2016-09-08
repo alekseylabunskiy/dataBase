@@ -17,9 +17,7 @@
             </div>
             <div class="form-group">
                 <label for="pass">Password</label>
-                <input type="text" class="form-control" value="<?php if (isset($one_person)) {
-                    echo $one_person[0]['password'];
-                } ?>" name="n_user_pass"
+                <input type="text" class="form-control"  name="n_user_pass"
                        id="u_password" placeholder="Пароль">
                 <p class="help-block"></p>
             </div>
