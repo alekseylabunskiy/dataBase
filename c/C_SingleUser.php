@@ -27,11 +27,9 @@ class C_SingleUser extends C_Base
         //
         if (isset($_POST['n_user_email']) && !empty($_POST['n_user_email']) && isset($_POST['n_user_pass']) && isset($_POST['new_role_user'])) {
 
-            /*
             $this->email = $_POST['n_user_email'];
             $this->pass = $_POST['n_user_pass'];
             $this->role = $_POST['new_role_user'];
-            */
         }
 
         //Отправляем обновленные данные пользователя

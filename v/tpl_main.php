@@ -22,7 +22,7 @@
 <?php if (!empty($currentUser)): ?>
 <div class="row">
     <div class="col-lg-10 col-sm-12 col-md-offset-1">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
