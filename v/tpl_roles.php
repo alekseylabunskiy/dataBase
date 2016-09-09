@@ -1,18 +1,15 @@
-<div class="panel panel-default">
-    <div class="panel-body text-center">
-        <h3>Керування ролями</h3>
-    </div>
+<div class="col-md-12">
+    <h2>Керування ролями</h2>
 </div>
-<div class="panel panel-default col-md-2">
-    <div class="panel-body text-center">
-        <div>
-            <a href="index.php?c=roles&create_role"><button class="btn btn-info">Створити Роль</button></a>
-        </div>
-    </div>
+<div class="col-md-12 text-right">
+    <a href="index.php?c=roles&create_role"><button class="btn btn-info">Створити Роль</button></a>
+</div>
+<div class="col-md-12">
+    <h3></h3>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table class="table  table-bordered text-center">
+        <table class="table  table-bordered table-striped text-center">
             <thead>
             <tr>
                 <th class="text-center col-md-2">Ім'я Ролі</th>

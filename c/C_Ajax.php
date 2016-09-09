@@ -5,6 +5,8 @@
  */
 class C_Ajax extends C_Base
 {
+    protected $privsAndRoles;
+    protected $roles;
     function __construct()
     {
         parent::__construct();
@@ -22,14 +24,20 @@ class C_Ajax extends C_Base
 
         //Меняем роль у привелегии
         if (isset($_POST['priv']) && !empty($_POST['priv']) && isset($_POST['role']) && !empty($_POST['role'])) {
-            $this->mUser->setRoleToPriv($_POST['priv'],$_POST['role']);
+
+            $this->mUser->setRoleToPriv($_POST['priv'][0],$_POST['role'][0]);
+            //Роли
+            $this->roles = $this->mUser->getListRoles();
+            //Роли и привелегии
+            $this->privsAndRoles = $this->mUser->getPrivsAndRoles();
         }
     }
 
 
     protected function OnOutput()
     {
-        $vars = [];
+        $vars = ['privsAndRoles' => $this->privsAndRoles[0],
+            'roles' => $this->roles];
 
         $page = $this->View('tpl_ajax.php', $vars);
 

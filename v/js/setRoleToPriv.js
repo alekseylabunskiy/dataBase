@@ -1,17 +1,34 @@
-$(function () {
-    $('.change_role').click(function (event) {
+$(document).ready(function(){
+
+    $("#result").on('click','.new_role',(function (event){
+        var target = event.target;
         event.preventDefault();
-        var form = this.form;
-        var priv = form.new_priv.value;
-        var role = $('.new_role:selected').val();
+        var params = parseGetParams((this).href);
 
-        doSet(priv,role);
-    });
+        doSet(params.priv,params.role);
+    }));
+
+    function parseGetParams(get) {
+        var params = {};
+
+        if (get != null) {
+            var searchRole = get.match(/role_id=[0-9]{1}/).toString();
+            var role = searchRole.match(/[0-9]{1}/);
+
+            var searchPriv = get.match(/priv_id=[0-9]{1}/).toString();
+            var priv = searchPriv.match(/[0-9]{1}/);
+
+            params =
+            {
+                role:role,
+                priv:priv
+            }
+            return params;
+        }
+    }
     function doSet(priv, role) {
-
         var url = 'index.php?c=ajax';
 
-        setTimeout(function () {
             var data = {
                 priv: priv,
                 role: role
@@ -20,7 +37,8 @@ $(function () {
                 type: 'POST',
                 url: url,
                 data: data,
-                success: function (sample) {
+                success: function (html) {
+                    $('#result').html(html);
                 },
                 error: function (jqXHR, exception) {
                     if (jqXHR.status === 0) {
@@ -40,6 +58,6 @@ $(function () {
                     }
                 }
             });
-        }, 200);
+        $('#t_main').hide();
     }
 });

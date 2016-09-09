@@ -32,7 +32,6 @@ abstract class C_Base extends C_Controller
         //Засекаем время начала работы скрипта
         $this->start_time = microtime(true);
 
-
         //ПОдключае модели
         $this->mysqli = M_MSQL::Instance();
         $this->mUser = M_Users::Instance();

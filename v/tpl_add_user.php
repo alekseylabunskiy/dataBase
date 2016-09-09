@@ -1,7 +1,5 @@
-<div class="panel panel-default">
-    <div class="panel-body text-center">
-        <h3>Додати користувача</h3>
-    </div>
+<div class="col-md-12 text-left  height90">
+    <h2>Додати користувача</h2>
 </div>
 <form role="form" action="index.php?c=add_user" method="post">
     <div class="form-group">
