@@ -28,7 +28,6 @@ class C_View extends C_Base
             $this->mysqli->Delete('users', "user_id = {$_GET['delete_id']}");
             header('Location:index.php?c=main_list');
         }
-
         //Список рараметров одного пользователя
         $this->one_person = $this->mUser->getOneUser($user_id);
     }

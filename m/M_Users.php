@@ -77,7 +77,9 @@ class M_Users
         $t = "SELECT * FROM users WHERE user_email = '%s'";
         $query = sprintf($t, $email);
         $result = $this->msql->Select($query);
-        return $result[0];
+        if (!empty($result)) {
+            return $result[0];
+        }
     }
 
     /*
@@ -446,6 +448,7 @@ class M_Users
             }
             $result[$key]['name_role'] = $name_role[0]['role_name'];
         }
+
         return $result;
     }
 
@@ -475,17 +478,29 @@ class M_Users
         $new_pass = null;
 
         //Проверяем пароль
-        $base_pass = $this->msql->Select("SELECT password FROM users WHERE user_id = '$user_id'");
+        $base_pass = $this->msql->Select("SELECT * FROM users WHERE user_id = '$user_id'");
 
         if ($pass == null) {
             $new_pass = $base_pass[0]['password'];
         } else {
             $new_pass = md5($pass);
         }
+        //Проверяем роль
+        if ($role == null) {
+            $new_role = $base_pass[0]['role_id'];
+        } else {
+            $new_role = $role;
+        }
+        //Проверяем емеил
+        if ($email == null) {
+            $new_email = $base_pass[0]['user_email'];
+        } else {
+            $new_email = $email;
+        }
 
-        $object = ['user_email' => $this->mFunctions->Clean($email),
+        $object = ['user_email' => $this->mFunctions->Clean($new_email),
             'password' => $new_pass,
-            'role_id' => $role,
+            'role_id' => $new_role,
             'user_time_update' => date("Y-m-d H:i:s")];
 
         $where = "user_id = $user_id";

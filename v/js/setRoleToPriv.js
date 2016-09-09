@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     $("#result").on('click','.new_role',(function (event){
-        var target = event.target;
+
         event.preventDefault();
         var params = parseGetParams((this).href);
 
@@ -22,7 +22,8 @@ $(document).ready(function(){
             {
                 role:role,
                 priv:priv
-            }
+            };
+
             return params;
         }
     }

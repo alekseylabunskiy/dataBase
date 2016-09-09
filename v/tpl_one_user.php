@@ -16,17 +16,21 @@
                        id="u_password" placeholder="Пароль">
                 <p class="help-block"></p>
             </div>
-            <div class="form-group">
-                <label for="new_role_user">Роль</label>
-                <select class="form-control" name="new_role_user" id="" title="new role">
-                    <option value="<?php if (isset($oneRole)){echo $oneRole[0]['role_id'];}?>" selected><?php if (isset($oneRole)){echo $oneRole[0]['role_name'];}?></option>
-                    <?php if (isset($roles)): ?>
-                        <?php foreach ($roles as $role): ?>
-                            <option value="<?php echo $role['role_id']?>"><?php echo $role['role_name']?></option>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
-            </div>
+            <?php if (isset($permissions)) {
+            if (in_array('CAN_REDACT_PRIVS', $permissions)): ?>
+                <div class="form-group">
+                    <label for="new_role_user">Роль</label>
+                    <select class="form-control" name="new_role_user" id="" title="new role">
+                        <option value="<?php if (isset($oneRole)){echo $oneRole[0]['role_id'];}?>" selected><?php if (isset($oneRole)){echo $oneRole[0]['role_name'];}?></option>
+                        <?php if (isset($roles)): ?>
+                            <?php foreach ($roles as $role): ?>
+                                <option value="<?php echo $role['role_id']?>"><?php echo $role['role_name']?></option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </div>
+            <?php endif;
+            } ?>
             <button type="submit" id="confUserData" class="btn btn-success" name="u_send">Отправить</button>
         </form>
     </div>

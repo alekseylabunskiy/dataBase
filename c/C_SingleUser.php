@@ -26,13 +26,17 @@ class C_SingleUser extends C_Base
         $user_id = $_GET['id'];
         //
         if (isset($_POST['n_user_email']) && !empty($_POST['n_user_email']) && isset($_POST['n_user_pass']) && isset($_POST['new_role_user'])) {
+
+            /*
             $this->email = $_POST['n_user_email'];
             $this->pass = $_POST['n_user_pass'];
             $this->role = $_POST['new_role_user'];
+            */
         }
 
         //Отправляем обновленные данные пользователя
         if (isset($_POST['u_send'])) {
+
             $this->mUser->UpdateUser($this->email, $this->pass,$this->role, $user_id);
 
             header("Location: index.php?c=view&id=$user_id");
@@ -51,6 +55,7 @@ class C_SingleUser extends C_Base
     {
         $vars = ['title' => $this->title,
             'one_person' => $this->one_person[0],
+            'permissions' => $this->permissions,
             'oneRole' => $this->oneRole,
             'roles' => $this->roles
         ];
