@@ -1,8 +1,10 @@
-$(document).ready(function(){
+$(function () {
+
 
     $("#result").on('click','.new_role',(function (event){
 
         event.preventDefault();
+
         var params = parseGetParams((this).href);
 
         doSet(params.priv,params.role);
@@ -23,12 +25,12 @@ $(document).ready(function(){
                 role:role,
                 priv:priv
             };
-
             return params;
         }
+        return false;
     }
-    function doSet(priv, role) {
-        var url = 'index.php?c=ajax';
+       function doSet(priv, role) {
+            var url = 'index.php?c=privs';
 
             var data = {
                 priv: priv,
@@ -39,6 +41,7 @@ $(document).ready(function(){
                 url: url,
                 data: data,
                 success: function (html) {
+
                     $('#result').html(html);
                 },
                 error: function (jqXHR, exception) {

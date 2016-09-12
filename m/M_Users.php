@@ -80,6 +80,7 @@ class M_Users
         if (!empty($result)) {
             return $result[0];
         }
+        return false;
     }
 
     /*
@@ -298,6 +299,7 @@ class M_Users
         $result = [];
         $role = [];
         $permissions_list = [];
+        $role_n = '';
 
         //Находим привелегию для данной роли
         $query1 = "SELECT privs.controller_name,privs.priv_id,privs.name FROM privs,privs2roles,roles WHERE roles.role_id = '$roleId' AND roles.role_id = privs2roles.role_id AND privs2roles.priv_id = privs.priv_id";
@@ -324,8 +326,14 @@ class M_Users
         }
 
         foreach ($role as $keys => $values) {
-            $queryss = "SELECT privs.controller_name,privs.priv_id,privs.name  FROM privs,privs2roles WHERE privs2roles.role_id = {$values[0]['role_id']} AND privs2roles.priv_id = privs.priv_id";
+
+            if (!empty($values)) {
+                $role_n = $values[0]['role_id'];
+            }
+
+            $queryss = "SELECT privs.controller_name,privs.priv_id,privs.name  FROM privs,privs2roles WHERE privs2roles.role_id = '$role_n' AND privs2roles.priv_id = privs.priv_id";
             $permissions_list[] = $this->msql->Select($queryss);
+
         }
 
         $permissions_final = $this->getAllPrivs($permissions_list);
@@ -446,7 +454,9 @@ class M_Users
                 $result[$key] = $value;
                 $result[$key]['checked'] = '';
             }
-            $result[$key]['name_role'] = $name_role[0]['role_name'];
+            if (!empty($name_role)) {
+                $result[$key]['name_role'] = $name_role[0]['role_name'];
+            }
         }
 
         return $result;

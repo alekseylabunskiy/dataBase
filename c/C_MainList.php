@@ -29,6 +29,12 @@ class C_MainList extends C_Base
             $this->mysqli->Delete('users', "user_id = {$_GET['delete_id']}");
             header('Location:index.php?c=main_list');
         }
+        //меняем статус пользователя ajax запросом
+        if ($this->ajax == true) {
+            if (isset($_POST['condition']) && isset($_POST['id']) && !empty($_POST['condition']) && !empty($_POST['id'])) {
+                $this->mUser->setStatus($_POST['id'], $_POST['condition']);
+            }
+        }
         //список всех пользователей
         $this->list = $this->mUser->getUsers();
 

@@ -12,6 +12,7 @@ abstract class C_Base extends C_Controller
     protected $user;
     protected $name;
     protected $mUser;
+    protected $content;
     protected $users;
     protected $mFunctions;
     protected $canPrivsRoles;
@@ -19,6 +20,7 @@ abstract class C_Base extends C_Controller
     protected $canUser;
     protected $errors;
     protected $permissions;
+    protected $ajax;
     private $start_time;
 
     function __construct()
@@ -54,8 +56,12 @@ abstract class C_Base extends C_Controller
         if (!empty($this->user)) {
             $this->name = $this->user['user_name'];
         }
+
         //Проверяем разрешения пользователя
         $this->permissions = $this->mUser->getAllPrivsCurrentUser($this->user['role_id']);
+        //проверяем на ajax запрос
+
+        $this->ajax = $this->mFunctions->getIsAjaxRequest();
     }
 
     protected function OnOutput()
@@ -69,7 +75,7 @@ abstract class C_Base extends C_Controller
 
         $time = microtime(true) - $this->start_time;
         $page .= "<!-- Время работы скрипта: $time мсек.-->";
-        
+
         echo $page;
     }
 }

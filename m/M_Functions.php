@@ -104,4 +104,11 @@ class M_Functions
         }
         return false;
     }
+    /*
+     * Проверка на AJAX запрос
+     */
+    public function getIsAjaxRequest()
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
 }

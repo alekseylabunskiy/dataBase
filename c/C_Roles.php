@@ -7,6 +7,9 @@ class C_Roles extends C_Base
 {
     protected $listRoles;
     protected $oneRole;
+    protected $delete_result;
+    protected $link;
+    protected $del_message;
 
     function __construct()
     {
@@ -30,14 +33,9 @@ class C_Roles extends C_Base
             header('location:index.php?c=roles');
         }
 
-        //Удаляем Роль
-        if (isset($_GET['delete_id'])) {
-            $this->mUser->deleteRole($_GET['delete_id']);
-        }
-
         //Обновляем роль
         if (isset($_POST['update_role'])) {
-            $this->mUser->updateRole($_POST['name_role'], $_POST['description_role'],$_GET['role_id']);
+            $this->mUser->updateRole($_POST['name_role'], $_POST['description_role'], $_GET['role_id']);
             header('location:index.php?c=roles');
         }
 
@@ -48,15 +46,36 @@ class C_Roles extends C_Base
         if (isset($_GET['role_id'])) {
             $this->oneRole = $this->mUser->getOneRole($_GET['role_id']);
         }
-    }
 
+        //Удаляем Роль
+        if ($this->ajax == true) {
+            if (isset($_POST['iddel'])) {
+                $this->delete_result = $this->mUser->deleteRole($_POST['iddel'][0]);
+                if (isset($this->delete_result)) {
+                    if ($this->delete_result == false) {
+                        $this->del_message['text'] = 'Ви не можете видалити цю роль так як вона має привелегії та користувачів';
+                    }
+                    if ($this->delete_result == true) {
+                        $this->del_message['text'] = 'Ви можете видалити цю роль.';
+                    }
+                }
+            }
+        }
+    }
 
     protected function OnOutput()
     {
 
         $vars = ['listRoles' => $this->listRoles,
-            'oneRole' => $this->oneRole[0]];
+            'oneRole' => $this->oneRole[0],
+            'del_message' => $this->del_message,
+            'link' => $this->link];
 
+        if ($this->ajax == true) {
+            $r = $this->View('/ajax/tpl_new_role_table.php', ['del_message' => $this->del_message]);
+            echo $r;
+            die();
+        }
         $this->content = $this->View('tpl_roles.php', $vars);
 
         //Если передан гет на редактирование одной роли подключаем другой шаблон
@@ -70,5 +89,6 @@ class C_Roles extends C_Base
 
         // C_Base.
         parent::OnOutput();
+
     }
 }
