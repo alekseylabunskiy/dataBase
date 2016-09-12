@@ -54,7 +54,7 @@ CREATE TABLE `privs` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`priv_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,10 +76,14 @@ DROP TABLE IF EXISTS `privs2roles`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `privs2roles` (
   `pr_id` int(11) NOT NULL AUTO_INCREMENT,
-  `priv_id` int(5) NOT NULL,
-  `role_id` int(5) NOT NULL,
-  PRIMARY KEY (`pr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
+  `priv_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`pr_id`),
+  KEY `priv_id` (`priv_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `privs2roles_ibfk_1` FOREIGN KEY (`priv_id`) REFERENCES `privs` (`priv_id`) ON UPDATE CASCADE,
+  CONSTRAINT `privs2roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +92,7 @@ CREATE TABLE `privs2roles` (
 
 LOCK TABLES `privs2roles` WRITE;
 /*!40000 ALTER TABLE `privs2roles` DISABLE KEYS */;
-INSERT INTO `privs2roles` VALUES (1,4,4),(2,3,3),(3,5,1),(4,1,1),(65,2,2);
+INSERT INTO `privs2roles` VALUES (1,1,1),(2,5,1),(3,2,2),(4,3,3),(5,4,4);
 /*!40000 ALTER TABLE `privs2roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +109,7 @@ CREATE TABLE `roles` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `name` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +118,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'root','може керувати ролями та привілегіями'),(2,'admin','може додавати, переглядати список, видаляти і редагувати користувачів'),(3,'moderator','може переглядати список користувачів, змінювати статус користувача'),(4,'user ','може тільки переглядати користувачів і сторінку власного профілю');
+INSERT INTO `roles` VALUES (1,'root','може керувати ролями та привілегіями'),(2,'admin','може додавати, переглядати список, видаляти і редагувати користувачів'),(3,'moderator','може переглядати список користувачів, змінювати статус користувача'),(4,'user','може тільки переглядати користувачів і сторінку власного профілю');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +137,7 @@ CREATE TABLE `sessions` (
   `time_last` datetime NOT NULL,
   PRIMARY KEY (`id_session`),
   UNIQUE KEY `sid` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=525 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=741 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +146,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (522,1,'qfplxgmyIF','2016-09-06 15:35:45','2016-09-06 17:05:43'),(523,1,'yO2sCOemUN','2016-09-06 17:06:14','2016-09-06 17:06:56'),(524,1,'lH1dtYOWEh','2016-09-06 17:19:10','2016-09-06 17:19:10');
+INSERT INTO `sessions` VALUES (740,1,'hvaQzSSyWo','2016-09-12 21:24:55','2016-09-12 21:25:07');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +169,7 @@ CREATE TABLE `users` (
   `user_last_active` datetime NOT NULL,
   `user_time_update` datetime NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +178,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'f9eb2327784f3c18d1e84ea47a267280',1,'test','test@test.ru','avatar.png',1,'2015-05-20 16:00:00','2018-06-20 16:00:00','2016-09-05 13:01:54'),(2,'0ed610b5d2394763730ec36053749047',2,'two','two@two.ua','avatar.png',1,'2014-02-20 15:00:00','2016-05-20 16:00:00','2016-09-06 17:06:25'),(3,'0e600c26672a3316f30be63181da7446',3,'three','three@three.ua','avatar.png',1,'2025-02-20 13:00:00','2025-08-20 15:00:00','2016-09-05 13:30:38'),(4,'e97412a5a29d228e81ab6ae8656cfb78',4,'for','for@for.ua','avatar.png',1,'2015-03-20 14:00:00','0000-00-00 00:00:00','2016-09-05 13:40:37'),(16,'45a6161897278f5cfe3c5a1beb8cddab',4,'thhthrhrhrhrh','test@test.as','avatar.png',1,'2016-09-03 10:19:36','0000-00-00 00:00:00','2016-09-05 09:57:52'),(24,'4a975452061bc7982310e2f8e4d69bc8',4,'test','test@test.as','avatar.png',1,'2016-09-05 10:07:46','0000-00-00 00:00:00','2016-09-06 15:51:58'),(25,'0e79707b428b3892a22f9359cd00d778',4,'dhhrgrre','test2@tesgggrg2.as','avatar.png',1,'2016-09-06 15:52:18','0000-00-00 00:00:00','2016-09-06 17:06:41');
+INSERT INTO `users` VALUES (1,'f9eb2327784f3c18d1e84ea47a267280',1,'test','test@test.ru','avatar.png',1,'2015-05-20 16:00:00','2018-06-20 16:00:00','2016-09-09 10:41:24'),(2,'0ed610b5d2394763730ec36053749047',2,'two','two@two.ua','avatar.png',1,'2014-02-20 15:00:00','2016-05-20 16:00:00','2016-09-12 17:30:39'),(3,'0e600c26672a3316f30be63181da7446',3,'three','three@three.ua','avatar.png',1,'2025-02-20 13:00:00','2025-08-20 15:00:00','2016-09-05 13:30:38'),(4,'e97412a5a29d228e81ab6ae8656cfb78',4,'for','for@for.ua','avatar.png',1,'2015-03-20 14:00:00','0000-00-00 00:00:00','2016-09-09 11:27:38'),(16,'45a6161897278f5cfe3c5a1beb8cddab',4,'thhthrhrhrhrh','test@test.as','avatar.png',1,'2016-09-03 10:19:36','0000-00-00 00:00:00','2016-09-05 09:57:52'),(24,'4a975452061bc7982310e2f8e4d69bc8',4,'test','test@test.as','avatar.png',1,'2016-09-05 10:07:46','0000-00-00 00:00:00','2016-09-06 15:51:58'),(25,'0e79707b428b3892a22f9359cd00d778',4,'dhhrgrre','test2@tesgggrg2.as','avatar.png',1,'2016-09-06 15:52:18','0000-00-00 00:00:00','2016-09-06 17:06:41'),(26,'e97412a5a29d228e81ab6ae8656cfb78',3,'уааацац','test2@tesgggrg2.as','avatar.png',1,'2016-09-07 09:28:47','0000-00-00 00:00:00','2016-09-08 10:30:13'),(27,'34368867ee7a302e1996ab9e75a7611b',4,'gbgfb','test2@tesgggrg2.as','avatar.png',0,'2016-09-08 11:09:11','0000-00-00 00:00:00','2016-09-12 20:54:57');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -187,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-06 17:21:55
+-- Dump completed on 2016-09-12 21:29:46
