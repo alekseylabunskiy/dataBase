@@ -36,13 +36,18 @@ function doSets(id) {
         url: url,
         data: data,
         success: function (sample) {
+            try {
+                var obj = jQuery.parseJSON(sample);
 
-            var obj = jQuery.parseJSON(sample);
+                if (obj.text != '') {
+                    $('.modal-body').html(obj.text);
+                }
+            } catch (err){
+                $('#old_table').hide();
+                $('.modal-body').html('Роль видалена.Так як вона не мае користувачів та привелегій');
+                $('#result').html(sample);
+            }
 
-            $('.modal-content').html('<div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button><h4 class="modal-title">Попередження!</h4> </div> <div id="message" class="modal-body"></div> <div class="modal-footer"> <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button></div>');
-
-            $('.modal-body').html(obj.text);
-            setTimeout(function () {location.reload(true)},3000);
         },
         error: function () {
             if (jqXHR.status === 0) {

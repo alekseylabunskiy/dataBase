@@ -39,14 +39,6 @@ class C_Roles extends C_Base
             header('location:index.php?c=roles');
         }
 
-        //Все роли
-        $this->listRoles = $this->mUser->getListRoles();
-
-        //Одна роль
-        if (isset($_GET['role_id'])) {
-            $this->oneRole = $this->mUser->getOneRole($_GET['role_id']);
-        }
-
         //Удаляем Роль
         if ($this->ajax == true) {
             if (isset($_POST['iddel'])) {
@@ -55,11 +47,15 @@ class C_Roles extends C_Base
                     if ($this->delete_result == false) {
                         $this->del_message['text'] = 'Ви не можете видалити цю роль так як вона має привелегії та користувачів';
                     }
-                    if ($this->delete_result == true) {
-                        $this->del_message['text'] = 'Ви можете видалити цю роль.';
-                    }
                 }
             }
+        }
+        //Все роли
+        $this->listRoles = $this->mUser->getListRoles();
+
+        //Одна роль
+        if (isset($_GET['role_id'])) {
+            $this->oneRole = $this->mUser->getOneRole($_GET['role_id']);
         }
     }
 
@@ -72,9 +68,16 @@ class C_Roles extends C_Base
             'link' => $this->link];
 
         if ($this->ajax == true) {
-            $r = $this->View('/ajax/tpl_new_role_table.php', ['del_message' => $this->del_message]);
-            echo $r;
-            die();
+            if ($this->delete_result == false) {
+                $r = $this->View('/ajax/tpl_new_role_table.php', ['del_message' => $this->del_message]);
+                echo $r;
+                die();
+            }
+            if ($this->delete_result == true) {
+                $r = $this->View('/ajax/tpl_new_roles_list.php', $vars);
+                echo $r;
+                die();
+            }
         }
         $this->content = $this->View('tpl_roles.php', $vars);
 
