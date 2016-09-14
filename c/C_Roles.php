@@ -29,7 +29,14 @@ class C_Roles extends C_Base
 
         //Добавляем роль
         if (isset($_POST['create_new_role'])) {
+
             $this->mUser->createRole($_POST['name_new_role'], $_POST['description_new_role']);
+
+            //Создаем связь в Parent Child для новой роли. по умолчанию делаем ее потомком самой младшей роли
+
+            if (!empty($_POST['name_new_role'] && !empty($_POST['description_new_role']))) {
+                $this->mUser->createNewRoleRelationParentChild();
+            }
             header('location:index.php?c=roles');
         }
 
@@ -42,7 +49,12 @@ class C_Roles extends C_Base
         //Удаляем Роль
         if ($this->ajax == true) {
             if (isset($_POST['iddel'])) {
+                //Удаляем роль
                 $this->delete_result = $this->mUser->deleteRole($_POST['iddel'][0]);
+
+                //Удаляем связь в таблице parent child
+                $this->mUser->deleteRelationParentChild($_POST['iddel'][0]);
+
                 if (isset($this->delete_result)) {
                     if ($this->delete_result == false) {
                         $this->del_message['text'] = 'Ви не можете видалити цю роль так як вона має привелегії та користувачів';

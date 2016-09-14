@@ -60,8 +60,8 @@ class M_Users
             return false;
         }
 
-        setcookie('email',$email,time() + 3600 * 24 * 7);
-        setcookie('password',md5($password),time() + 3600 * 24 * 7);
+        setcookie('email', $email, time() + 3600 * 24 * 7);
+        setcookie('password', md5($password), time() + 3600 * 24 * 7);
 
         $this->sid = $this->OpenSession($id_user);
 
@@ -341,24 +341,6 @@ class M_Users
         return $permissions_final;
     }
 
-    protected function getAllPrivs($privs)
-    {
-        $result = [];
-        if (is_array($privs)) {
-
-            foreach ($privs as $key => $value) {
-                foreach ($value as $keys => $values) {
-                    $result[] = $values;
-                }
-            }
-        }
-        return $result;
-    }
-
-    /*
-     * Все потомки роли
-     */
-
     public function getChildrenList()
     {
         $query = "SELECT * FROM auth_item_child";
@@ -374,7 +356,7 @@ class M_Users
     }
 
     /*
-     * Все потомки роли рекурсивно
+     * Все потомки роли
      */
 
     protected function getChildrenRecursive($name, $childrenList, &$result)
@@ -385,6 +367,24 @@ class M_Users
                 $this->getChildrenRecursive($child, $childrenList, $result);
             }
         }
+    }
+
+    /*
+     * Все потомки роли рекурсивно
+     */
+
+    protected function getAllPrivs($privs)
+    {
+        $result = [];
+        if (is_array($privs)) {
+
+            foreach ($privs as $key => $value) {
+                foreach ($value as $keys => $values) {
+                    $result[] = $values;
+                }
+            }
+        }
+        return $result;
     }
 
     /*
@@ -483,7 +483,7 @@ class M_Users
      * Обновляем данные пользователя
      */
 
-    public function UpdateUser($email, $pass,$role,$user_id)
+    public function UpdateUser($email, $pass, $role, $user_id)
     {
         $new_pass = null;
 
@@ -616,6 +616,7 @@ class M_Users
 
         return $result;
     }
+
     /*
      * Меняем Роль у привелегии
      */
@@ -646,6 +647,39 @@ class M_Users
     }
 
     /*
+     * Создаем запись новой роли в таблице "auth_item_child"
+     * Автоматически присваиваем потомком последней роли.
+     */
+    public function createNewRoleRelationParentChild()
+    {
+        //Выбираем самого последнего помка из таблицы auth_item_child базы данных
+        $lastChildren = $this->msql->Select("SELECT MAX(child) AS lastChild FROM auth_item_child");
+
+        //Выбираем новую роль из БД
+        $newRole = $this->msql->Select("SELECT MAX(role_id) AS lastRole FROM roles");
+
+        //Назначаем его родителем для новой роли
+        $parent = $lastChildren[0]['lastChild'];
+        $child = $newRole[0]['lastRole'];
+
+        $result = $this->msql->Insert('auth_item_child', ['parent' => $parent, 'child' => $child]);
+
+        return $result;
+    }
+
+    /*
+     *  Удаляем связь parent child
+     */
+
+    public function deleteRelationParentChild($id_role){
+        if (!empty($id_role)) {
+            $result = $this->msql->Delete('auth_item_child',"child = $id_role");
+            return $result;
+        }
+        return false;
+    }
+
+    /*
      * Удаляем роль
      */
 
@@ -661,20 +695,23 @@ class M_Users
      * Получаем роль пользователя
      */
 
-    public function getOneUserRole($user_id){
-        if (!empty($user_id)){
+    public function getOneUserRole($user_id)
+    {
+        if (!empty($user_id)) {
             $query = "SELECT roles.role_name,roles.role_id FROM roles,users WHERE users.user_id = $user_id AND users.role_id = roles.role_id";
             return $this->msql->Select($query);
         }
         return false;
     }
+
     /*
      * Назначаем Роль привелегии
      */
 
-    public function setRoleToPriv($priv,$role){
+    public function setRoleToPriv($priv, $role)
+    {
         if (!empty($priv) && !empty($role)) {
-            return $this->msql->Update('privs2roles',['role_id' => $role],"priv_id = $priv");
+            return $this->msql->Update('privs2roles', ['role_id' => $role], "priv_id = $priv");
         }
         return false;
     }
@@ -683,31 +720,34 @@ class M_Users
      * получаем роль пользователя
      */
 
-    public function getOneRole($role_id){
-        if (!empty($role_id)){
+    public function getOneRole($role_id)
+    {
+        if (!empty($role_id)) {
             return $this->msql->Select("SELECT * FROM roles WHERE role_id = '$role_id'");
         }
         return false;
     }
+
     /*
      * Обновляем роль
      */
 
-    public function updateRole($name, $description,$role_id){
+    public function updateRole($name, $description, $role_id)
+    {
 
-        if (!empty($name) && !empty($description)){
+        if (!empty($name) && !empty($description)) {
 
             $name = $this->mFunctions->Clean($name);
             $description = $this->mFunctions->Clean($description);
 
             $origin_role = $this->msql->Select("SELECT * FROM roles WHERE role_id = '$role_id'");
 
-            if ($name != $origin_role[0]['role_name']){
-                $this->msql->Update('roles',['role_name' => $name],"role_id = $role_id");
+            if ($name != $origin_role[0]['role_name']) {
+                $this->msql->Update('roles', ['role_name' => $name], "role_id = $role_id");
             }
 
-            if ($description != $origin_role[0]['description']){
-                $this->msql->Update('roles',['description' => $description],"role_id = $role_id");
+            if ($description != $origin_role[0]['description']) {
+                $this->msql->Update('roles', ['description' => $description], "role_id = $role_id");
             }
             return true;
         }

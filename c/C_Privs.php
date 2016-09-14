@@ -53,6 +53,7 @@ class C_Privs extends C_Base
     {
         $vars = ['privsAndRoles' => $this->privsAndRoles[0],
             'roles' => $this->roles];
+
         if ($this->ajax == true) {
             $r = $this->View('/ajax/tpl_ajax.php', ['privsAndRoles' => $this->privsAndRoles[0], 'roles' => $this->roles]);
             echo $r;
