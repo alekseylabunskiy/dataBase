@@ -16,6 +16,9 @@ class C_Roles extends C_Base
         parent::__construct();
     }
 
+    /**
+     *
+     */
     protected function OnInput()
     {
         // C_Base.
@@ -52,14 +55,16 @@ class C_Roles extends C_Base
                 //Удаляем роль
                 $this->delete_result = $this->mUser->deleteRole($_POST['iddel'][0]);
 
-                //Удаляем связь в таблице parent child
-                $this->mUser->deleteRelationParentChild($_POST['iddel'][0]);
-
                 if (isset($this->delete_result)) {
                     if ($this->delete_result == false) {
                         $this->del_message['text'] = 'Ви не можете видалити цю роль так як вона має привелегії та користувачів';
                     }
+                    if ($this->delete_result == true) {
+                        //Удаляем связь в таблице parent child
+                        $this->mUser->deleteRelationParentChild($_POST['iddel'][0]);
+                    }
                 }
+
             }
         }
         //Все роли

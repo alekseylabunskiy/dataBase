@@ -1,14 +1,13 @@
 $(function () {
+/*
+ *
+ */
 
-
-    $("#result").on('click','.new_role',(function (event){
-
-        event.preventDefault();
-
-        var params = parseGetParams((this).href);
-
-        doSet(params.priv,params.role);
-    }));
+    $(".rolesPrivsSelect").change(function (){
+        var options = $(this).val();
+        var params = parseGetParams(options);
+        doSet(params.priv, params.role);
+    });
 
     function parseGetParams(get) {
         var params = {};
@@ -29,6 +28,7 @@ $(function () {
         }
         return false;
     }
+
        function doSet(priv, role) {
             var url = 'index.php?c=privs';
 
@@ -40,9 +40,8 @@ $(function () {
                 type: 'POST',
                 url: url,
                 data: data,
-                success: function (html) {
+                success: function (sample) {
 
-                    $('#result').html(html);
                 },
                 error: function (jqXHR, exception) {
                     if (jqXHR.status === 0) {
@@ -62,6 +61,5 @@ $(function () {
                     }
                 }
             });
-        $('#t_main').hide();
     }
 });

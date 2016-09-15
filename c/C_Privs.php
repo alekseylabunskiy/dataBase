@@ -8,6 +8,7 @@ class C_Privs extends C_Base
 {
     protected $privsAndRoles;
     protected $roles;
+    protected $stat;
 
     function __construct()
     {
@@ -29,23 +30,26 @@ class C_Privs extends C_Base
             $this->mErrors->wrongAuthorization();
             header('location:index.php?c=error');
         }
+        //Роли
+        $this->roles = $this->mUser->getListRoles();
+        //Роли и привелегии
+        $this->privsAndRoles = $this->mUser->getPrivsAndRoles();
+        //echo "<pre>";
+        //var_dump($this->privsAndRoles);
         //Меняем роль у привелегии
         if ($this->ajax == true) {
 
             if (isset($_POST['priv']) && !empty($_POST['priv']) && isset($_POST['role']) && !empty($_POST['role'])) {
 
-                $this->mUser->setRoleToPriv($_POST['priv'][0], $_POST['role'][0]);
-                //Роли
-                $this->roles = $this->mUser->getListRoles();
-                //Роли и привелегии
-                $this->privsAndRoles = $this->mUser->getPrivsAndRoles();
+                $set = $this->mUser->setRoleToPriv($_POST['priv'][0], $_POST['role'][0]);
+                if ($set) {
+                    $this->stat['status'] = 'Ok';
+                }
+                else {
+                    $this->stat['status'] = 'Error';
+                }
             }
         }
-
-        //Роли
-        $this->roles = $this->mUser->getListRoles();
-        //Роли и привелегии
-        $this->privsAndRoles = $this->mUser->getPrivsAndRoles();
     }
 
 
@@ -55,10 +59,11 @@ class C_Privs extends C_Base
             'roles' => $this->roles];
 
         if ($this->ajax == true) {
-            $r = $this->View('/ajax/tpl_ajax.php', ['privsAndRoles' => $this->privsAndRoles[0], 'roles' => $this->roles]);
+            $r = $this->View('/ajax/tpl_new_role.php', ['stat' => $this->stat]);
             echo $r;
             die();
         }
+
         $this->content = $this->View('tpl_privs.php', $vars);
 
         // C_Base.
