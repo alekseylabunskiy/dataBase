@@ -30,7 +30,7 @@ $('#send_file').click(function (event) {
                 try {
                     var obj = jQuery.parseJSON(respond);
                     if (obj.name_image != null) {
-                        var mBody = $('.modal-body');
+                        var mBody = $('.m_body');
                         $('.modal-title').html('Завантажене фото');
                         var img = obj.name_image;
                         var src = '/v/files/user_avatar/originals/';
@@ -39,13 +39,16 @@ $('#send_file').click(function (event) {
                         var def = $('.btn-default');
                         def.attr('id','add_foto_to_user');
                         def.text('Замінити аватар');
+                        var foto = $('#foto_file');
+                        foto.html('');
+                        foto.val('');
                         $('#not_add_foto').removeAttr('hidden');
                     } else {
                         $('#not_add_foto').attr('hidden','hidden');
-                        $('.modal-body').html(obj);
+                        $('.m_body').html(obj);
                     }
                 }catch (err) {
-                    $('.modal-body').html('Файл завантажено.');
+                    $('.m_body').html('Файл завантажено.');
                 }
             }
             else{

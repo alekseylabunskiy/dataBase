@@ -25,7 +25,7 @@
                 if (in_array('CAN_REDACT_PRIVS', $permissions)): ?>
                     <div class="form-group">
                         <label for="new_role_user">Роль</label>
-                        <select class="form-control" name="new_role_user" id="" title="new role">
+                        <select class="form-control" name="new_role_user" title="new role">
                             <option value="<?php if (isset($oneRole)) {
                                 echo $oneRole[0]['role_id'];
                             } ?>" selected><?php if (isset($oneRole)) {
@@ -83,7 +83,7 @@
                 <button class="close" type="button" data-dismiss="modal">×</button>
                 <h4 class="modal-title">Наявні фото</h4>
             </div>
-            <div id="listImgs" class="modal-body">
+            <div id="listImgs" class="modal-body mod_m">
                 <div class="row">
                     <?php if (!empty($user_images) && !is_array($user_images)): ?>
                         <p class="center-block"><?php echo $user_images; ?></p>
@@ -118,7 +118,7 @@
                 <button class="close" type="button" data-dismiss="modal">×</button>
                 <h4 class="modal-title">Попередження!</h4>
             </div>
-            <div id="message" class="modal-body"></div>
+            <div id="message" class="modal-body m_body"></div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">Закрити</button>
                 <span id="not_add_foto" hidden="hidden"><button class="btn btn-danger" type="button"
