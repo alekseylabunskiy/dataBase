@@ -53,7 +53,7 @@ CREATE TABLE `images` (
   `user_id` int(11) NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `images` (
 
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` VALUES (71,'b9b60e1e415a4e47dcd50c62c5e73b6b678.jpg',1,'2016-09-17 16:21:12'),(72,'c78e20bf2c5d4c8e04390662fafbe96887.jpg',1,'2016-09-17 16:21:45'),(73,'8cda81fc7ad906927144235dda5fdf15957.jpg',1,'2016-09-17 16:23:03'),(74,'a4e7ff26c998b25fe938f8aa02e2ce52404.jpg',1,'2016-09-17 16:28:04'),(75,'ccfba8fc6fa79b86b569854ef4cdbacc219.jpg',1,'2016-09-17 16:30:21'),(76,'c78e20bf2c5d4c8e04390662fafbe968793.jpg',1,'2016-09-17 16:32:50'),(77,'c78e20bf2c5d4c8e04390662fafbe968105.jpg',1,'2016-09-17 16:33:57'),(78,'d6218d56181e0c1ba7c01513b92b8e49486.jpg',1,'2016-09-17 16:38:12'),(79,'c78e20bf2c5d4c8e04390662fafbe968456.jpg',1,'2016-09-17 16:41:28'),(80,'d6218d56181e0c1ba7c01513b92b8e49876.jpg',1,'2016-09-17 16:45:06'),(81,'ccfba8fc6fa79b86b569854ef4cdbacc5.jpg',1,'2016-09-17 16:45:49'),(82,'c78e20bf2c5d4c8e04390662fafbe968177.jpg',1,'2016-09-17 16:47:01'),(83,'b9b60e1e415a4e47dcd50c62c5e73b6b172.jpg',1,'2016-09-17 16:48:53'),(84,'d6218d56181e0c1ba7c01513b92b8e49950.jpg',1,'2016-09-17 16:49:34'),(85,'c78e20bf2c5d4c8e04390662fafbe968842.jpg',1,'2016-09-17 16:51:48'),(86,'ab2b3d0393dfbc2576b90f199ac02f71120.jpg',1,'2016-09-17 17:01:25'),(87,'74d0c9e842f5198df09f2aaa2965cee2357.jpg',1,'2016-09-17 17:02:02'),(88,'ff9efab1c5c99c13d0b367997046319981.jpg',1,'2016-09-17 17:02:26'),(89,'ab2b3d0393dfbc2576b90f199ac02f71579.jpg',1,'2016-09-17 17:03:41'),(90,'32aba00fef18491b459ac1c8ebe04ffb519.jpg',1,'2016-09-17 17:51:16'),(91,'32aba00fef18491b459ac1c8ebe04ffb943.jpg',1,'2016-09-17 17:51:23'),(92,'32aba00fef18491b459ac1c8ebe04ffb695.jpg',1,'2016-09-17 17:51:26'),(93,'a4e7ff26c998b25fe938f8aa02e2ce52976.jpg',1,'2016-09-17 17:54:26'),(94,'d6218d56181e0c1ba7c01513b92b8e4988.jpg',1,'2016-09-17 18:30:53'),(95,'d6218d56181e0c1ba7c01513b92b8e4948.jpg',1,'2016-09-17 18:32:21'),(96,'32aba00fef18491b459ac1c8ebe04ffb149.jpg',1,'2016-09-17 18:36:45'),(97,'b9b60e1e415a4e47dcd50c62c5e73b6b128.jpg',1,'2016-09-17 18:42:39'),(98,'b9b60e1e415a4e47dcd50c62c5e73b6b46.jpg',1,'2016-09-17 18:42:51'),(99,'a4e7ff26c998b25fe938f8aa02e2ce52521.jpg',1,'2016-09-17 18:44:27'),(100,'a4e7ff26c998b25fe938f8aa02e2ce52415.jpg',1,'2016-09-17 18:44:35'),(101,'ccfba8fc6fa79b86b569854ef4cdbacc280.jpg',1,'2016-09-17 18:46:20'),(102,'b9b60e1e415a4e47dcd50c62c5e73b6b589.jpg',1,'2016-09-17 18:46:52'),(103,'c78e20bf2c5d4c8e04390662fafbe968485.jpg',1,'2016-09-17 18:47:29'),(104,'c78e20bf2c5d4c8e04390662fafbe968618.jpg',1,'2016-09-17 18:47:45'),(105,'d6218d56181e0c1ba7c01513b92b8e49630.jpg',1,'2016-09-17 19:05:55'),(106,'51e0824336ba7584f2274b8019706095476.jpg',1,'2016-09-17 19:07:57'),(107,'ccfba8fc6fa79b86b569854ef4cdbacc496.jpg',1,'2016-09-17 19:08:50');
+INSERT INTO `images` VALUES (176,'57de985596b989fdcbc28405325f2bc5a4737a7fd6509.jpg',1,'2016-09-18 16:36:21'),(181,'57de9c4c3ba0f771f72d0c8d5c751a0b176ed7a4fddd1.jpg',1,'2016-09-18 16:53:16'),(183,'57de9c58e1e0f4af49a2506916797106f9ea324cb6dc3.jpg',1,'2016-09-18 16:53:28'),(184,'57de9c5f3f1aeb914d3d3cbb1c019b03af9abfb26773e.jpg',1,'2016-09-18 16:53:35'),(185,'57de9cc5e063ada1f1445fc32d0508fa528369a976e2f.png',4,'2016-09-18 16:55:17'),(186,'57de9cd0b1aeea313206130e30f5e1bd073a9fdaee132.jpg',4,'2016-09-18 16:55:28'),(187,'57de9cd9b96c87253991c822f2707ce0b4754012f92ac.jpg',4,'2016-09-18 16:55:37'),(188,'57dea1348f2aa27fbc251c3999466d360ecdd0b06e33e.png',1,'2016-09-18 17:14:12');
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +163,7 @@ CREATE TABLE `sessions` (
   `time_last` datetime NOT NULL,
   PRIMARY KEY (`id_session`),
   UNIQUE KEY `sid` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=789 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=821 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (787,1,'j1Ph8OFni0','2016-09-17 18:23:57','2016-09-17 19:09:32'),(788,1,'JqAd1UmNKr','2016-09-17 19:07:36','2016-09-17 19:08:57');
+INSERT INTO `sessions` VALUES (819,4,'RZqCLQV3n2','2016-09-18 16:55:04','2016-09-18 16:56:36'),(820,1,'wgsue85sQF','2016-09-18 16:57:18','2016-09-18 17:15:52');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,9 +204,24 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'f9eb2327784f3c18d1e84ea47a267280',1,'test','test@test.ru','ccfba8fc6fa79b86b569854ef4cdbacc280.jpg',1,'2015-05-20 16:00:00','2018-06-20 16:00:00','2016-09-09 10:41:24'),(2,'0ed610b5d2394763730ec36053749047',2,'two','two@two.ua','b9b60e1e415a4e47dcd50c62c5e73b6b589.jpg',1,'2014-02-20 15:00:00','2016-05-20 16:00:00','2016-09-16 15:05:57'),(3,'0e600c26672a3316f30be63181da7446',3,'three','three@three.ua','c78e20bf2c5d4c8e04390662fafbe968485.jpg',1,'2025-02-20 13:00:00','2025-08-20 15:00:00','2016-09-05 13:30:38'),(4,'e97412a5a29d228e81ab6ae8656cfb78',4,'for','for@for.ua','d6218d56181e0c1ba7c01513b92b8e49630.jpg',1,'2015-03-20 14:00:00','0000-00-00 00:00:00','2016-09-17 15:52:03'),(28,'1369bc0e8974f0bb2702a76bed62e19a',4,'efwef','test2@tesgggrg2.as','ccfba8fc6fa79b86b569854ef4cdbacc496.jpg',1,'2016-09-17 18:29:08','0000-00-00 00:00:00','2016-09-17 18:44:51');
+INSERT INTO `users` VALUES (1,'f9eb2327784f3c18d1e84ea47a267280',1,'test','test@test.ru','57dea1348f2aa27fbc251c3999466d360ecdd0b06e33e.png',1,'2015-05-20 16:00:00','2018-06-20 16:00:00','2016-09-18 17:15:23'),(2,'0ed610b5d2394763730ec36053749047',2,'two','two@two.ua','57de47e900593d5d85d5073d42ee0fe481bbbf8a1423c.jpg',1,'2014-02-20 15:00:00','2016-05-20 16:00:00','2016-09-18 10:53:15'),(3,'0e600c26672a3316f30be63181da7446',3,'three','three@three.ua','57de48110e9642934d974e2f112248abbd8a450a26d54.jpg',1,'2025-02-20 13:00:00','2025-08-20 15:00:00','2016-09-18 10:53:55'),(4,'e97412a5a29d228e81ab6ae8656cfb78',4,'for','for@for.ua','57de9cd9b96c87253991c822f2707ce0b4754012f92ac.jpg',1,'2015-03-20 14:00:00','0000-00-00 00:00:00','2016-09-18 16:55:45'),(28,'1369bc0e8974f0bb2702a76bed62e19a',4,'efwef','test2@tesgggrg2.a','57de49b6c687b2246d1dbfd516ad8443e61144c6dfc02.jpg',1,'2016-09-17 18:29:08','0000-00-00 00:00:00','2016-09-18 11:00:56');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `delete images` BEFORE DELETE ON `users` FOR EACH ROW DELETE FROM images WHERE user_id = OLD.user_id */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -217,4 +232,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-17 19:19:02
+-- Dump completed on 2016-09-18 17:18:02
