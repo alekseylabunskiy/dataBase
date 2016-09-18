@@ -37,7 +37,7 @@ class C_View extends C_Base
     {
         $vars = ['title' => $this->title,
             'canRedactUsers' => $this->canRedactUsers,
-            'one_person' => $this->one_person[0]];
+            'one_person' => $this->one_person];
 
         $this->content = $this->View('tpl_view.php', $vars);
 

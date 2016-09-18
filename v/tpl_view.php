@@ -9,6 +9,15 @@
                 </a>
         </div>
         <br>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Аватарка</label>
+                <img id="avatar_img" src="/v/files/user_avatar/originals/<?php if (!empty($one_person)) {
+                    echo $one_person['user_avatar'];
+                } ?>" class="img-thumbnail" alt="Фото">
+            </div>
+        </div>
+        <br>
         <label>Email</label>
         <div class="panel panel-default">
             <div class="panel-body">

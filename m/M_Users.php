@@ -432,7 +432,7 @@ class M_Users
         //Устанавливаем название поля role_name
         $result[0]['name_role'] = $name_role[0]['role_name'];
 
-        return $result;
+        return $result[0];
     }
 
     //Получаем всех пользователей
@@ -671,9 +671,10 @@ class M_Users
      *  Удаляем связь parent child
      */
 
-    public function deleteRelationParentChild($id_role){
+    public function deleteRelationParentChild($id_role)
+    {
         if (!empty($id_role)) {
-            $result = $this->msql->Delete('auth_item_child',"child = $id_role");
+            $result = $this->msql->Delete('auth_item_child', "child = $id_role");
             return $result;
         }
         return false;
@@ -758,6 +759,36 @@ class M_Users
      * Добавить дочернюю роль
      */
 
+    public function setSessionUserId($value)
+    {
+        return $_SESSION['user_id_f'] = $value;
+    }
+
+    /*
+     *
+     */
+
+    public function getSessionUserId()
+    {
+        return $_SESSION['user_id_f'];
+    }
+
+    /*
+     *
+     */
+
+    public function updateItem($table, $obj, $where)
+    {
+        if (!empty($table) && !empty($obj) && !empty($where)) {
+            return $this->msql->Update($table, $obj, $where);
+        }
+        return false;
+    }
+
+    /*
+     *
+     */
+
     protected function addChild($parent, $child)
     {
         if ($parent === $child) {
@@ -767,4 +798,61 @@ class M_Users
 
         return true;
     }
+    /*
+     * Удаляем пользователя
+     */
+    public function deleteUser($user_id)
+    {
+        if (!empty($user_id)){
+            //Выбираем фото загруженные пользователем
+            $fotos = $this->msql->Select("SELECT name_image FROM images WHERE user_id = $user_id");
+            //Пути к файлам
+            $dirPath1 = BASEPATH . '/v/files/user_avatar/originals/';
+            $dirPath2 = BASEPATH . '/v/files/user_avatar/resized/100/';
+            //Перебираем их в цикле
+            foreach ($fotos as $foto){
+                //удаляем файлы
+                if (file_exists($dirPath1.$foto['name_image'])) {
+                    unlink($dirPath1.$foto['name_image']);
+                }
+                if (file_exists($dirPath2.$foto['name_image'])) {
+                    unlink($dirPath2.$foto['name_image']);
+                }
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Все Фото пользователя
+     */
+    public function getUserImages($user_id)
+    {
+        if (!empty($user_id)) {
+
+            $result = [];
+            //Выбираем фото загруженные пользователем
+            $fotos = $this->msql->Select("SELECT * FROM images WHERE user_id = $user_id ORDER BY user_id DESC");
+            //если запрос вернул ноль то отправляем
+            if (empty($fotos)) {
+                $result = 'У Вас ще немає завантажених фото.';
+            }
+            //Перебираем их в цикле
+            foreach ($fotos as $foto) {
+                $result[] = $foto;
+            }
+            return $result;
+        }
+        return false;
+    }
+    /*
+     *
+     */
+    public function deleteItem($table,$where){
+        if (!empty($table)) {
+            return $this->msql->Delete($table,$where);
+        }
+        return false;
+    }
 }
+

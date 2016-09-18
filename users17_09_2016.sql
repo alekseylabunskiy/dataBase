@@ -41,6 +41,32 @@ INSERT INTO `auth_item_child` VALUES (1,'3','4'),(3,'1','2'),(5,'2','3');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name_image` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+INSERT INTO `images` VALUES (71,'b9b60e1e415a4e47dcd50c62c5e73b6b678.jpg',1,'2016-09-17 16:21:12'),(72,'c78e20bf2c5d4c8e04390662fafbe96887.jpg',1,'2016-09-17 16:21:45'),(73,'8cda81fc7ad906927144235dda5fdf15957.jpg',1,'2016-09-17 16:23:03'),(74,'a4e7ff26c998b25fe938f8aa02e2ce52404.jpg',1,'2016-09-17 16:28:04'),(75,'ccfba8fc6fa79b86b569854ef4cdbacc219.jpg',1,'2016-09-17 16:30:21'),(76,'c78e20bf2c5d4c8e04390662fafbe968793.jpg',1,'2016-09-17 16:32:50'),(77,'c78e20bf2c5d4c8e04390662fafbe968105.jpg',1,'2016-09-17 16:33:57'),(78,'d6218d56181e0c1ba7c01513b92b8e49486.jpg',1,'2016-09-17 16:38:12'),(79,'c78e20bf2c5d4c8e04390662fafbe968456.jpg',1,'2016-09-17 16:41:28'),(80,'d6218d56181e0c1ba7c01513b92b8e49876.jpg',1,'2016-09-17 16:45:06'),(81,'ccfba8fc6fa79b86b569854ef4cdbacc5.jpg',1,'2016-09-17 16:45:49'),(82,'c78e20bf2c5d4c8e04390662fafbe968177.jpg',1,'2016-09-17 16:47:01'),(83,'b9b60e1e415a4e47dcd50c62c5e73b6b172.jpg',1,'2016-09-17 16:48:53'),(84,'d6218d56181e0c1ba7c01513b92b8e49950.jpg',1,'2016-09-17 16:49:34'),(85,'c78e20bf2c5d4c8e04390662fafbe968842.jpg',1,'2016-09-17 16:51:48'),(86,'ab2b3d0393dfbc2576b90f199ac02f71120.jpg',1,'2016-09-17 17:01:25'),(87,'74d0c9e842f5198df09f2aaa2965cee2357.jpg',1,'2016-09-17 17:02:02'),(88,'ff9efab1c5c99c13d0b367997046319981.jpg',1,'2016-09-17 17:02:26'),(89,'ab2b3d0393dfbc2576b90f199ac02f71579.jpg',1,'2016-09-17 17:03:41'),(90,'32aba00fef18491b459ac1c8ebe04ffb519.jpg',1,'2016-09-17 17:51:16'),(91,'32aba00fef18491b459ac1c8ebe04ffb943.jpg',1,'2016-09-17 17:51:23'),(92,'32aba00fef18491b459ac1c8ebe04ffb695.jpg',1,'2016-09-17 17:51:26'),(93,'a4e7ff26c998b25fe938f8aa02e2ce52976.jpg',1,'2016-09-17 17:54:26'),(94,'d6218d56181e0c1ba7c01513b92b8e4988.jpg',1,'2016-09-17 18:30:53'),(95,'d6218d56181e0c1ba7c01513b92b8e4948.jpg',1,'2016-09-17 18:32:21'),(96,'32aba00fef18491b459ac1c8ebe04ffb149.jpg',1,'2016-09-17 18:36:45'),(97,'b9b60e1e415a4e47dcd50c62c5e73b6b128.jpg',1,'2016-09-17 18:42:39'),(98,'b9b60e1e415a4e47dcd50c62c5e73b6b46.jpg',1,'2016-09-17 18:42:51'),(99,'a4e7ff26c998b25fe938f8aa02e2ce52521.jpg',1,'2016-09-17 18:44:27'),(100,'a4e7ff26c998b25fe938f8aa02e2ce52415.jpg',1,'2016-09-17 18:44:35'),(101,'ccfba8fc6fa79b86b569854ef4cdbacc280.jpg',1,'2016-09-17 18:46:20'),(102,'b9b60e1e415a4e47dcd50c62c5e73b6b589.jpg',1,'2016-09-17 18:46:52'),(103,'c78e20bf2c5d4c8e04390662fafbe968485.jpg',1,'2016-09-17 18:47:29'),(104,'c78e20bf2c5d4c8e04390662fafbe968618.jpg',1,'2016-09-17 18:47:45'),(105,'d6218d56181e0c1ba7c01513b92b8e49630.jpg',1,'2016-09-17 19:05:55'),(106,'51e0824336ba7584f2274b8019706095476.jpg',1,'2016-09-17 19:07:57'),(107,'ccfba8fc6fa79b86b569854ef4cdbacc496.jpg',1,'2016-09-17 19:08:50');
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `privs`
 --
 
@@ -79,8 +105,10 @@ CREATE TABLE `privs2roles` (
   `priv_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`pr_id`),
-  FOREIGN KEY (`priv_id`) REFERENCES `privs` (`priv_id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `priv_id` (`priv_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `privs2roles_ibfk_1` FOREIGN KEY (`priv_id`) REFERENCES `privs` (`priv_id`) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT `privs2roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -107,7 +135,7 @@ CREATE TABLE `roles` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `name` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +163,7 @@ CREATE TABLE `sessions` (
   `time_last` datetime NOT NULL,
   PRIMARY KEY (`id_session`),
   UNIQUE KEY `sid` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=741 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=789 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +172,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (740,1,'hvaQzSSyWo','2016-09-12 21:24:55','2016-09-12 21:25:07');
+INSERT INTO `sessions` VALUES (787,1,'j1Ph8OFni0','2016-09-17 18:23:57','2016-09-17 19:09:32'),(788,1,'JqAd1UmNKr','2016-09-17 19:07:36','2016-09-17 19:08:57');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +195,7 @@ CREATE TABLE `users` (
   `user_last_active` datetime NOT NULL,
   `user_time_update` datetime NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +204,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'f9eb2327784f3c18d1e84ea47a267280',1,'test','test@test.ru','avatar.png',1,'2015-05-20 16:00:00','2018-06-20 16:00:00','2016-09-09 10:41:24'),(2,'0ed610b5d2394763730ec36053749047',2,'two','two@two.ua','avatar.png',1,'2014-02-20 15:00:00','2016-05-20 16:00:00','2016-09-12 17:30:39'),(3,'0e600c26672a3316f30be63181da7446',3,'three','three@three.ua','avatar.png',1,'2025-02-20 13:00:00','2025-08-20 15:00:00','2016-09-05 13:30:38'),(4,'e97412a5a29d228e81ab6ae8656cfb78',4,'for','for@for.ua','avatar.png',1,'2015-03-20 14:00:00','0000-00-00 00:00:00','2016-09-09 11:27:38'),(16,'45a6161897278f5cfe3c5a1beb8cddab',4,'thhthrhrhrhrh','test@test.as','avatar.png',1,'2016-09-03 10:19:36','0000-00-00 00:00:00','2016-09-05 09:57:52'),(24,'4a975452061bc7982310e2f8e4d69bc8',4,'test','test@test.as','avatar.png',1,'2016-09-05 10:07:46','0000-00-00 00:00:00','2016-09-06 15:51:58'),(25,'0e79707b428b3892a22f9359cd00d778',4,'dhhrgrre','test2@tesgggrg2.as','avatar.png',1,'2016-09-06 15:52:18','0000-00-00 00:00:00','2016-09-06 17:06:41'),(26,'e97412a5a29d228e81ab6ae8656cfb78',3,'уааацац','test2@tesgggrg2.as','avatar.png',1,'2016-09-07 09:28:47','0000-00-00 00:00:00','2016-09-08 10:30:13'),(27,'34368867ee7a302e1996ab9e75a7611b',4,'gbgfb','test2@tesgggrg2.as','avatar.png',0,'2016-09-08 11:09:11','0000-00-00 00:00:00','2016-09-12 20:54:57');
+INSERT INTO `users` VALUES (1,'f9eb2327784f3c18d1e84ea47a267280',1,'test','test@test.ru','ccfba8fc6fa79b86b569854ef4cdbacc280.jpg',1,'2015-05-20 16:00:00','2018-06-20 16:00:00','2016-09-09 10:41:24'),(2,'0ed610b5d2394763730ec36053749047',2,'two','two@two.ua','b9b60e1e415a4e47dcd50c62c5e73b6b589.jpg',1,'2014-02-20 15:00:00','2016-05-20 16:00:00','2016-09-16 15:05:57'),(3,'0e600c26672a3316f30be63181da7446',3,'three','three@three.ua','c78e20bf2c5d4c8e04390662fafbe968485.jpg',1,'2025-02-20 13:00:00','2025-08-20 15:00:00','2016-09-05 13:30:38'),(4,'e97412a5a29d228e81ab6ae8656cfb78',4,'for','for@for.ua','d6218d56181e0c1ba7c01513b92b8e49630.jpg',1,'2015-03-20 14:00:00','0000-00-00 00:00:00','2016-09-17 15:52:03'),(28,'1369bc0e8974f0bb2702a76bed62e19a',4,'efwef','test2@tesgggrg2.as','ccfba8fc6fa79b86b569854ef4cdbacc496.jpg',1,'2016-09-17 18:29:08','0000-00-00 00:00:00','2016-09-17 18:44:51');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -189,4 +217,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-12 21:29:46
+-- Dump completed on 2016-09-17 19:19:02

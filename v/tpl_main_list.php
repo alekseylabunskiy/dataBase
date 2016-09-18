@@ -25,9 +25,9 @@
                 <td><?php echo $list['name_role']; ?></td>
                 <td><?php echo $list['user_name']; ?></td>
                 <td><?php echo $list['user_email']; ?></td>
-                <td class="col-xs-1">
-                    <img src="/v/files/user_avatar/<?php echo $list['user_avatar']; ?>" class="img-responsive"
-                         alt="Отзывчивое изображение в Bootstrap">
+                <td class="col-xs-1і">
+                    <img src="/v/files/user_avatar/resized/100/<?php echo $list['user_avatar']; ?>" class="img-rounded"
+                         alt="foto">
                 </td>
                 <td><?php echo $list['user_date_register']; ?></td>
                 <td><?php echo $list['user_last_active']; ?></td>
@@ -44,7 +44,8 @@
                                 </div>
                             </form>
                         </td>
-                        <td><a href="/index.php?c=single_user&id=<?php echo $list['user_id']; ?>" title="Редактировать"><span
+                        <td>
+                            <a href="/index.php?c=single_user&id=<?php echo $list['user_id']; ?>" title="Редактировать"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
                             <a href="/index.php?c=main_list&delete_id=<?php echo $list['user_id']; ?>" title="Удалить"><span
                                     class="glyphicon glyphicon-trash conf-delete"></span></a>

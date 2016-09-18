@@ -10,6 +10,8 @@ date_default_timezone_set('Europe/Kiev');
 //параметр get
 $get = '';
 
+define("BASEPATH", dirname(__FILE__).'/');
+
 function __autoload($classname)
 {
     $type = explode('_', $classname);

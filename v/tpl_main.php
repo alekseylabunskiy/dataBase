@@ -19,6 +19,7 @@
     <script defer src="/v/js/setUserStatus.js"></script>
     <script defer src="/v/js/setRoleToPriv.js"></script>
     <script defer src="/v/js/confirmDeleteRole.js"></script>
+    <script defer src="/v/js/insertFotos.js"></script>
     <link rel="stylesheet" href="/v/css/bootstrap.min.css">
     <link rel="stylesheet" href="/v/css/style.css">
 </head>

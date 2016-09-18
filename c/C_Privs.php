@@ -43,9 +43,8 @@ class C_Privs extends C_Base
 
                 $set = $this->mUser->setRoleToPriv($_POST['priv'][0], $_POST['role'][0]);
                 if ($set) {
-                    $this->stat['status'] = 'Ok';
-                }
-                else {
+                    $this->stat['status'] = 'ok';
+                } else {
                     $this->stat['status'] = 'Error';
                 }
             }

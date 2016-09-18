@@ -23,6 +23,7 @@ abstract class C_Base extends C_Controller
     protected $ajax;
     private $start_time;
 
+
     function __construct()
     {
         $this->needLogin = true;
@@ -34,11 +35,12 @@ abstract class C_Base extends C_Controller
         //Засекаем время начала работы скрипта
         $this->start_time = microtime(true);
 
-        //ПОдключае модели
+        //Подключаем модели
         $this->mysqli = M_MSQL::Instance();
         $this->mUser = M_Users::Instance();
         $this->mFunctions = M_Functions::Instance();
         $this->mErrors = M_Errors::Instance();
+        $this->image = M_Image::Instance();
 
         //Очищаем старые сесии
         $this->mUser->ClearSessions();
