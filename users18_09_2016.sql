@@ -56,15 +56,6 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `images`
---
-
-LOCK TABLES `images` WRITE;
-/*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` VALUES (176,'57de985596b989fdcbc28405325f2bc5a4737a7fd6509.jpg',1,'2016-09-18 16:36:21'),(181,'57de9c4c3ba0f771f72d0c8d5c751a0b176ed7a4fddd1.jpg',1,'2016-09-18 16:53:16'),(183,'57de9c58e1e0f4af49a2506916797106f9ea324cb6dc3.jpg',1,'2016-09-18 16:53:28'),(184,'57de9c5f3f1aeb914d3d3cbb1c019b03af9abfb26773e.jpg',1,'2016-09-18 16:53:35'),(185,'57de9cc5e063ada1f1445fc32d0508fa528369a976e2f.png',4,'2016-09-18 16:55:17'),(186,'57de9cd0b1aeea313206130e30f5e1bd073a9fdaee132.jpg',4,'2016-09-18 16:55:28'),(187,'57de9cd9b96c87253991c822f2707ce0b4754012f92ac.jpg',4,'2016-09-18 16:55:37'),(188,'57dea1348f2aa27fbc251c3999466d360ecdd0b06e33e.png',1,'2016-09-18 17:14:12');
-/*!40000 ALTER TABLE `images` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `privs`
@@ -165,16 +156,6 @@ CREATE TABLE `sessions` (
   UNIQUE KEY `sid` (`sid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=821 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sessions`
---
-
-LOCK TABLES `sessions` WRITE;
-/*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (819,4,'RZqCLQV3n2','2016-09-18 16:55:04','2016-09-18 16:56:36'),(820,1,'wgsue85sQF','2016-09-18 16:57:18','2016-09-18 17:15:52');
-/*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `users`

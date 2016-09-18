@@ -819,6 +819,8 @@ class M_Users
                     unlink($dirPath2.$foto['name_image']);
                 }
             }
+            //Удаляем пользователя
+            $this->msql->Delete('users', "user_id = '$user_id'");
         }
         return false;
     }
@@ -835,7 +837,7 @@ class M_Users
             $fotos = $this->msql->Select("SELECT * FROM images WHERE user_id = $user_id ORDER BY user_id DESC");
             //если запрос вернул ноль то отправляем
             if (empty($fotos)) {
-                $result = 'У Вас ще немає завантажених фото.';
+                $result ='Немає завантажених фото.';
             }
             //Перебираем их в цикле
             foreach ($fotos as $foto) {

@@ -63,13 +63,16 @@ class C_SingleUser extends C_Base
                         //Сохраняем имя изображения в базу
                         $this->image->saveTodB($SESSION['name_foto'], $this->user['user_id']);
 
-                        //Сохраняем изображения на сервер
+                        //Сохраняем изображение на сервер
                         $this->image->SaveResized($sizes, $this->name_foto);
 
                         //Вытаскиваем только что добавленное изображение
                         $foto = $this->image->selectNewFoto($this->name_foto);
-
+                        //Передаем имя изображения
                         $this->json['name_image'] = $foto[0]['name_image'];
+                        //Очищаем массив $_FILES
+                        $_FILES = null;
+                        $_POST = null;
                     } else {
                         $this->json = $errors;
                     }

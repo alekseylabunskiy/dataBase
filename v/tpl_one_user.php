@@ -42,7 +42,7 @@
                 <?php endif;
             } ?>
 
-            <button type="submit" id="confUserData" class="btn btn-success" name="u_send">Отправить</button>
+            <button type="submit" id="confUserData" class="btn btn-success" name="u_send">Відправити</button>
         </form>
         <br>
 
@@ -76,22 +76,6 @@
         <br>
     </div>
 </div>
-<div id="myModal" class="modal fade text-center">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Попередження!</h4>
-            </div>
-            <div id="message" class="modal-body"></div>
-            <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">Закрити</button>
-                <span id="not_add_foto" hidden="hidden"><button class="btn btn-danger" type="button"
-                                                                data-dismiss="modal">Відхілити</button></span>
-            </div>
-        </div>
-    </div>
-</div>
 <div id="archiveImages" class="modal fade text-center">
     <div class="modal-dialog modal-lg oldOne">
         <div class="modal-content">
@@ -123,6 +107,22 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">Закрити</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal fade text-center">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Попередження!</h4>
+            </div>
+            <div id="message" class="modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Закрити</button>
+                <span id="not_add_foto" hidden="hidden"><button class="btn btn-danger" type="button"
+                                                                data-dismiss="modal">Відхілити</button></span>
             </div>
         </div>
     </div>

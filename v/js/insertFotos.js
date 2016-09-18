@@ -38,7 +38,7 @@ $('#send_file').click(function (event) {
                         mBody.html(ht);
                         var def = $('.btn-default');
                         def.attr('id','add_foto_to_user');
-                        def.text('Добавити');
+                        def.text('Замінити аватар');
                         $('#not_add_foto').removeAttr('hidden');
                     } else {
                         $('#not_add_foto').attr('hidden','hidden');
