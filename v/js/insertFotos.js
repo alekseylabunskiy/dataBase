@@ -38,7 +38,7 @@ $('#send_file').click(function (event) {
                         mBody.html(ht);
                         var def = $('.m_mod');
                         def.attr('id','add_foto_to_user');
-                        def.text('Замінити аватар');
+                        def.text('Ок');
                         var foto = $('#foto_file');
                         foto.html('');
                         foto.val('');
