@@ -120,7 +120,7 @@
             </div>
             <div id="message" class="modal-body m_body"></div>
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">Закрити</button>
+                <button class="btn btn-default m_mod" type="button" data-dismiss="modal">Закрити</button>
                 <span id="not_add_foto" hidden="hidden"><button class="btn btn-danger" type="button"
                                                                 data-dismiss="modal">Відхілити</button></span>
             </div>

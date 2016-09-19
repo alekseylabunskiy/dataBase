@@ -36,7 +36,7 @@ $('#send_file').click(function (event) {
                         var src = '/v/files/user_avatar/originals/';
                         var ht = "<img src=" + src + img + " class=img-thumbnail alt='Фото'>";
                         mBody.html(ht);
-                        var def = $('.btn-default');
+                        var def = $('.m_mod');
                         def.attr('id','add_foto_to_user');
                         def.text('Замінити аватар');
                         var foto = $('#foto_file');
