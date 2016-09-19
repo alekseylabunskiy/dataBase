@@ -48,7 +48,7 @@ $('#send_file').click(function (event) {
                         $('.m_body').html(obj);
                     }
                 }catch (err) {
-                    $('.m_body').html('Файл завантажено.');
+                    $('.m_body').html('Помилка! Невідомий файл.');
                 }
             }
             else{
