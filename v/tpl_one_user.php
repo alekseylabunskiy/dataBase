@@ -2,7 +2,7 @@
     <div class="col-md-3 col-md-offset-1">
         <img id="avatar_img" src="/v/files/user_avatar/originals/<?php if (!empty($one_person)) {
             echo $one_person['user_avatar'];
-        } ?>" class="img-thumbnail" alt="Фото">
+        } ?>" class="img-thumbnail" alt="Добавьте фото">
     </div>
     <div class="col-lg-10 col-md-offset-1">
         <form role="form" action="/index.php?c=single_user&id=<?php if (isset($one_person)) {
@@ -92,15 +92,11 @@
                         <?php foreach ($user_images as $image): ?>
                             <div id="old_imgs" class="col-sm-4">
                                 <div class="well">
-                                    <div class="img_block">
-                                        <a href="/index.php?c=single_user&id=<?php if (isset($one_person)) {
+                                    <a href="/index.php?c=single_user&id=<?php if (isset($one_person)) {
                                         echo $one_person['user_id'];
-                                        } ?>&image_id=<?php echo $image['name_image']; ?>"><img id="old_i"
+                                    } ?>&image_id=<?php echo $image['name_image']; ?>"><img id="old_i"
                                                                                             class="img img-responsive o_foto"
                                                                                             src="/v/files/user_avatar/originals/<?php echo $image['name_image']; ?>"></a>
-                                        <div class="over_block"></div>
-                                        <span>Замінити аватар</span>
-                                    </div>
                                     <br>
                                     <button type="button" class="btn btn-danger btn-block deleteImg">Видалити</button>
                                 </div>

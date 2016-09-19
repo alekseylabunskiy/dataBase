@@ -27,7 +27,7 @@
                 <td><?php echo $list['user_email']; ?></td>
                 <td class="col-xs-1і">
                     <img src="/v/files/user_avatar/resized/100/<?php echo $list['user_avatar']; ?>" class="img-rounded"
-                         alt="foto">
+                         alt="Добавьте фото">
                 </td>
                 <td><?php echo $list['user_date_register']; ?></td>
                 <td><?php echo $list['user_last_active']; ?></td>
