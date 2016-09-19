@@ -42,11 +42,11 @@ class C_SingleUser extends C_Base
                 }
 
                 $sizes = array(
-                    '100' => array('width' => 100, 'heigth' => 100),
+                    '100' => ['width' => 100, 'heigth' => 100],
                 );
 
                 foreach ($_FILES as $files) {
-
+                    //Создаем новое имя файла
                     $this->name_foto = $this->image->setNewNameFile();
 
                     $this->image->setSessionFoto($this->name_foto);

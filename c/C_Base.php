@@ -8,6 +8,7 @@ abstract class C_Base extends C_Controller
 {
     public $title = 'БАЗА ДАНИХ КОРИСТУВАЧІВ';
     protected $mysqli;
+    protected $image;
     protected $needLogin;
     protected $user;
     protected $name;
@@ -45,6 +46,9 @@ abstract class C_Base extends C_Controller
         //Очищаем старые сесии
         $this->mUser->ClearSessions();
 
+        //Проверка существования изображения аватара
+        $this->image->removeReferencesToNonexistentImage();
+
         //logout
         if (isset($_GET['logout'])) {
             $this->mUser->Logout();
@@ -76,7 +80,7 @@ abstract class C_Base extends C_Controller
         $page = $this->View('tpl_main.php', $vars);
 
         $time = microtime(true) - $this->start_time;
-        $page .= "<!-- Время работы скрипта: $time мсек.-->";
+        $page .= "<!-- Время работы скрипта: $time сек.-->";
 
         echo $page;
     }

@@ -15,6 +15,7 @@ class M_Image
     public function __construct()
     {
         $this->msql = M_MSQL::Instance();
+
         foreach ($_FILES as $file) {
             $this->load($file['tmp_name']);
         }
@@ -22,15 +23,17 @@ class M_Image
 
     public function load($filename)
     {
-        $image_info = getimagesize($filename);
-        $this->image_type = $image_info[2];
-        if ($this->image_type == IMAGETYPE_JPEG)
-            $this->image = imagecreatefromjpeg($filename);
-        elseif ($this->image_type == IMAGETYPE_GIF)
-            $this->image = imagecreatefromgif($filename);
-        elseif ($this->image_type == IMAGETYPE_PNG)
-            $this->image = imagecreatefrompng($filename);
-
+        if (!empty($filename)) {
+            $image_info = getimagesize($filename);
+            $this->image_type = $image_info[2];
+            if ($this->image_type == IMAGETYPE_JPEG)
+                $this->image = imagecreatefromjpeg($filename);
+            elseif ($this->image_type == IMAGETYPE_GIF)
+                $this->image = imagecreatefromgif($filename);
+            elseif ($this->image_type == IMAGETYPE_PNG)
+                $this->image = imagecreatefrompng($filename);
+        }
+        return false;
     }
 
     public static function Instance()
@@ -250,13 +253,14 @@ class M_Image
                 preg_match('/\.(jpg|jpeg|gif|jpe|png|pcx|bmp)$/i', $file['name'], $matches);
 
                 $un = uniqid("");
-                $rand = md5(md5(rand(1,5000) + rand(1,10000)));
+                $rand = md5(md5(rand(1, 5000) + rand(1, 10000)));
                 $new_name = $un . $rand . $matches[0];
             }
             return $new_name;
         }
         return false;
     }
+
     /*
      * Удаляем одно изображение
      */
@@ -264,17 +268,77 @@ class M_Image
     {
         if (!empty($image_name)) {
             //Удаляем запись в базе данных
-            $result = $this->msql->Delete('images',"name_image = $image_name");
+            $result = $this->msql->Delete('images', "name_image = $image_name");
             //Пути к файлам
             $dirPath1 = BASEPATH . '/v/files/user_avatar/originals/';
             $dirPath2 = BASEPATH . '/v/files/user_avatar/resized/100/';
             //Перебираем их в цикле
             //удаляем файлы
-            if (file_exists($dirPath1.$image_name)) {
-                unlink($dirPath1.$image_name);
+            if (file_exists($dirPath1 . $image_name)) {
+                unlink($dirPath1 . $image_name);
             }
-            if (file_exists($dirPath2.$image_name)) {
-                unlink($dirPath2.$image_name);
+            if (file_exists($dirPath2 . $image_name)) {
+                unlink($dirPath2 . $image_name);
+            }
+            return $result;
+        }
+        return false;
+    }
+
+    /*
+     * Проверка существования файлов изображения пользователя
+     */
+
+    public function removeReferencesToNonexistentImage()
+    {
+        //Проверка существования изображений
+        $this->removeReferencesToAllNonexistentImages();
+
+        $result = '';
+
+        //Выбераем все изображения пользователей
+        $usersImages = $this->msql->Select("SELECT users.user_avatar, users.user_id FROM users");
+
+        if (!empty($usersImages)) {
+            foreach ($usersImages as $image) {
+                //Пути к файлам
+                $dirPath1 = BASEPATH . '/v/files/user_avatar/originals/';
+                $dirPath2 = BASEPATH . '/v/files/user_avatar/resized/100/';
+                //Перебираем их в цикле
+                //если такого файла нет то ставим заглушку вместо фото
+                if (!file_exists($dirPath1 . $image['user_avatar']) || !file_exists($dirPath2 . $image['user_avatar'])) {
+                    $result = $this->msql->Update('users', ['user_avatar' => 'avatar.png'], 'user_id=' . $image['user_id']);
+                }
+            }
+            return $result;
+        }
+        return false;
+    }
+
+    /*
+     * Провека на существование фото, и если ыото нет удаляется ссылка на это изображение
+     */
+
+    protected function removeReferencesToAllNonexistentImages()
+    {
+        $result = '';
+        //Выбераем все изображения пользователей
+        $usersImages = $this->msql->Select("SELECT name_image FROM images");
+
+        if (!empty($usersImages)) {
+            foreach ($usersImages as $image) {
+                foreach ($image as $item) {
+                    $name = $item;
+                    //Пути к файлам
+                    $dirPath1 = BASEPATH . 'v/files/user_avatar/originals/';
+                    $dirPath2 = BASEPATH . 'v/files/user_avatar/resized/100/';
+
+                    //Перебираем их в цикле
+                    //если такого файла нет то удаляем пустую ссылку
+                    if (!file_exists($dirPath1 . $name) || !file_exists($dirPath2 . $name)) {
+                        $result = $this->msql->Delete('images',"name_image = '$name'");
+                    }
+                }
             }
             return $result;
         }

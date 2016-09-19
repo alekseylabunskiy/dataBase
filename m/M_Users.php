@@ -847,9 +847,11 @@ class M_Users
         }
         return false;
     }
+
     /*
      *
      */
+
     public function deleteItem($table,$where){
         if (!empty($table)) {
             return $this->msql->Delete($table,$where);
