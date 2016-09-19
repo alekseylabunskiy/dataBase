@@ -60,10 +60,10 @@
 }
 .img_block:hover .over_block {
     display:block;
-    background-color:rgba(0, 160, 150, 0.7);
+    background-color:rgba(178,178 , 178, 0.7);
 }
 .img_block span {
-    background: rgba(0, 92, 44, 0.5);
+    background: rgba(71, 71, 71, 0.5);
     width:100%;
     height:0px;
     text-transform:uppercase;
