@@ -92,11 +92,15 @@
                         <?php foreach ($user_images as $image): ?>
                             <div id="old_imgs" class="col-sm-4">
                                 <div class="well">
-                                    <a href="/index.php?c=single_user&id=<?php if (isset($one_person)) {
+                                    <div class="img_block">
+                                        <a href="/index.php?c=single_user&id=<?php if (isset($one_person)) {
                                         echo $one_person['user_id'];
-                                    } ?>&image_id=<?php echo $image['name_image']; ?>"><img id="old_i"
+                                        } ?>&image_id=<?php echo $image['name_image']; ?>"><img id="old_i"
                                                                                             class="img img-responsive o_foto"
                                                                                             src="/v/files/user_avatar/originals/<?php echo $image['name_image']; ?>"></a>
+                                        <div class="over_block"></div>
+                                        <span>Замінити аватар</span>
+                                    </div>
                                     <br>
                                     <button type="button" class="btn btn-danger btn-block deleteImg">Видалити</button>
                                 </div>
