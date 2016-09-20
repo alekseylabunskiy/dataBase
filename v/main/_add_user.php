@@ -1,7 +1,7 @@
 <div class="col-md-12 text-left  height90">
     <h2>Додати користувача</h2>
 </div>
-<form role="form" action="index.php?c=add_user" method="post" enctype="multipart/form-data">
+<form role="form" action="index.php?c=main&a=add_user" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="name">Им'я</label>
         <input type="text" class="form-control" name="new_user_name" id="name" placeholder="Им'я" required>
@@ -22,7 +22,7 @@
         <label for="filename">Завантажити аватар</label>
         <input id="foto_file" type="file" name="file_name"/>
         <p class="help-block">Завантажувані фотографії повинні бути в форматі jpg,gif,png, і розміром не
-        більше 1Мб</p>
+            більше 1Мб</p>
     </div>
     <button type="submit" id="create_user" name="create_user" class="btn btn-success">Создати</button>
 </form>

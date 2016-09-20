@@ -19,7 +19,7 @@
     </div>
     <div class="panel panel-default text-center">
         <div class="panel-body">
-            <a href="/index.php?c=login"><h3>Перейти на сторінку авторізації</h3></a>
+            <a href="/index.php?c=main&a=login"><h3>Перейти на сторінку авторізації</h3></a>
         </div>
     </div>
 <?php endif; ?>

@@ -26,7 +26,7 @@ function parseGetParams(get) {
 }
 function doSets(id) {
 
-    var url = 'index.php?c=roles';
+    var url = 'index.php?c=main&a=roles';
 
     var data = {
         iddel: id

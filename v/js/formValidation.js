@@ -1,3 +1,4 @@
+//noinspection JSUnresolvedFunction
 $(function () {
      /**
      * Провряет валидность введенных значений адреса ел. почты и пароля

@@ -3,7 +3,7 @@
         <h3>Редагування ролі</h3>
     </div>
 </div>
-<form action="/index.php?c=roles&redact_role&role_id=<?php if (isset($oneRole)) {echo $oneRole['role_id'];} ?>" role="form" method="post">
+<form action="/index.php?c=main&a=redact_role&role_id=<?php if (isset($oneRole)) {echo $oneRole['role_id'];} ?>" role="form" method="post">
     <div class="form-group">
         <label for="name_role">Ім'я ролі</label>
         <input type="text" class="form-control" required id="name_role" name="name_role" value="<?php if (isset($oneRole)) {

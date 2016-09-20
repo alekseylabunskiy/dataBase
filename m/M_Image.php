@@ -81,7 +81,7 @@ class M_Image
             }
 
             $width = $value['width'];
-            $height = $value['heigth'];
+            $height = $value['height'];
 
             foreach ($_FILES as $file) {
                 $this->create_thumbnail($file['tmp_name'], $pathToResize . $key . "/" . $name, $width, $height);

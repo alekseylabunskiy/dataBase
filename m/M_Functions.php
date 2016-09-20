@@ -23,25 +23,12 @@ class M_Functions
         return self::$instance;
     }
 
-    public function Clean($text)
-    {
-        $quotes = array("\x27", "\x22", "\x60", "\t", "\n", "\r", "*", "%", "<", ">", "?", "!");
-        $goodquotes = array("-", "+", "#");
-        $repquotes = array("\-", "\+", "\#");
-        $text = trim(strip_tags($text));
-        $text = str_replace($quotes, '', $text);
-        $text = str_replace($goodquotes, $repquotes, $text);
-        $text = str_replace(" +", " ", $text);
-
-        return $text;
-    }
-
     /*
      * Функция поучения контроллеров из параметра GET
      */
     public function getControllers($get)
     {
-        $mErrors = M_Errors::Instance();
+        $class_name = '';
         /*
          * В коде ниже гет параметр, если он составной разбивается на отдельные части, склеивается в название Контроллера.
          */
@@ -64,9 +51,6 @@ class M_Functions
                 $class = 'C_' . $partOne . $partTwo;
                 if ($this->getExistentControllers($class)) {
                     $class_name = new $class;
-                } else {
-                    $class_name = new C_Error;
-                    $mErrors->wrongUrl();
                 }
             } else {
                 $first = mb_substr($get, 0, 1, 'UTF-8');//первая буква
@@ -78,14 +62,42 @@ class M_Functions
                 if ($this->getExistentControllers($class)) {
                     $class_name = new $class;
                 } else {
-                    $class_name = new C_Error;
-                    $mErrors->wrongUrl();
                 }
             }
         } else {
-            $class_name = new C_Welcome();
+            $class_name = new C_Main();
         }
         return $class_name;
+    }
+    public function getMethod($c_method)
+    {
+        if (!empty($c_method)) {
+            if (strstr($c_method, '_')) {
+
+                $parts = explode('_', $c_method);
+                $first_1 = mb_substr($parts[0], 0, 1, 'UTF-8');//первая буква
+                $last_1 = mb_substr($parts[0], 1);//все кроме первой буквы
+                $first_1 = mb_strtoupper($first_1, 'UTF-8');
+                $last_1 = mb_strtolower($last_1, 'UTF-8');
+                $partOne = $first_1 . $last_1;
+
+                $partTwo = $parts[1];
+                $first = mb_substr($partTwo, 0, 1, 'UTF-8');//первая буква
+                $last = mb_substr($partTwo, 1);//все кроме первой буквы
+                $first = mb_strtoupper($first, 'UTF-8');
+                $last = mb_strtolower($last, 'UTF-8');
+                $partTwo = $first . $last;
+                $methods = $partOne . $partTwo;
+            } else {
+                $first = mb_substr($c_method, 0, 1, 'UTF-8');//первая буква
+                $last = mb_substr($c_method, 1);//все кроме первой буквы
+                $first = mb_strtoupper($first, 'UTF-8');
+                $last = mb_strtolower($last, 'UTF-8');
+                $methods = $first . $last;
+            }
+            return 'action'.$methods;
+        }
+        return 'actionIndex';
     }
 
     /*
@@ -104,6 +116,20 @@ class M_Functions
         }
         return false;
     }
+
+    public function Clean($text)
+    {
+        $quotes = array("\x27", "\x22", "\x60", "\t", "\n", "\r", "*", "%", "<", ">", "?", "!");
+        $goodquotes = array("-", "+", "#");
+        $repquotes = array("\-", "\+", "\#");
+        $text = trim(strip_tags($text));
+        $text = str_replace($quotes, '', $text);
+        $text = str_replace($goodquotes, $repquotes, $text);
+        $text = str_replace(" +", " ", $text);
+
+        return $text;
+    }
+
     /*
      * Проверка на AJAX запрос
      */

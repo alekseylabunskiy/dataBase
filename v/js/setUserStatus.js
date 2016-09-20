@@ -8,7 +8,7 @@ $('.status_user').click(function () {
 
 function doAjax(condition, id) {
 
-    var url = 'index.php?c=main_list';
+    var url = 'index.php?c=main&a=index';
 
     setTimeout(function () {
         var data = {

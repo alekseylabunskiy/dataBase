@@ -6,26 +6,25 @@
 
 abstract class C_Controller
 {
+    public $method;
 
-    function __construct()
+    public function __construct()
     {
     }
 
-    public function Request()
+    public function Request($method)
     {
-        $this->OnInput();
-        $this->OnOutput();
+        $this->$method();
     }
 
-    protected function OnInput()
+    protected function setUpView($template, $vars)
     {
+        $page = $this->render($template, $vars);
+
+        echo $page;
     }
 
-    protected function OnOutput()
-    {
-    }
-
-    protected function View($fileName, $vars = array())
+    protected function render($fileName, $vars = [])
     {
         foreach ($vars as $k => $v) {
             $$k = $v;

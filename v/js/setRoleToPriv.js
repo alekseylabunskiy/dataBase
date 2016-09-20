@@ -30,7 +30,7 @@ $(function () {
     }
 
     function doSet(priv, role) {
-        var url = 'index.php?c=privs';
+        var url = 'index.php?c=main&a=privs';
 
         var data = {
             priv: priv,
