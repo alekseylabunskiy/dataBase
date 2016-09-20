@@ -11,6 +11,7 @@
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
     <script defer src="/v/js/bootstrap.min.js"></script>
+    <script defer src="/v/js/jquery.colorbox-min.js"></script>
     <script defer src="/v/js/formValidation.js"></script>
     <script defer src="/v/js/createUserFormValidation.js"></script>
     <script defer src="/v/js/functions.js"></script>
@@ -20,6 +21,7 @@
     <script defer src="/v/js/Fotos.js"></script>
     <link rel="stylesheet" href="/v/css/bootstrap.min.css">
     <link rel="stylesheet" href="/v/css/style.css">
+    <link rel="stylesheet" href="/v/css/colorbox.css">
 </head>
 <body>
     <div class="container">

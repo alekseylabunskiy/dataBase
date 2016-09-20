@@ -147,3 +147,5 @@ $('#archiveImages').on('click','.deleteImg',function () {
     });
     $('.oldOne').hide();
 });
+
+    jQuery("a.colorbox").colorbox();
