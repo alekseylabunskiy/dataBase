@@ -12,7 +12,16 @@ class C_Errors extends C_SiteController
 
     public function actionWrongAuthorization()
     {
-        $vars = [];
+        $text = $this->mErrors->wrongAuthorization();
+        $vars = ['text' => $text];
+        $this->content = $this->render('errors/404.php', $vars);
+        parent::Out();
+    }
+
+    public function actionWrongUrl()
+    {
+        $text = $this->mErrors->wrongUrl();
+        $vars = ['text' => $text];
         $this->content = $this->render('errors/404.php', $vars);
         parent::Out();
     }

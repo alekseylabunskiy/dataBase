@@ -8,7 +8,7 @@ session_start();
 
 date_default_timezone_set('Europe/Kiev');
 
-define("BASEPATH", dirname(__FILE__).'/');
+define("BASEPATH", dirname(__FILE__) . '/');
 
 function __autoload($classname)
 {
@@ -37,4 +37,8 @@ $controller = $controllers->getControllers($c_controller);
 //Подключаем методы
 $a_method = $controllers->getMethod($c_method);
 // Обработка запроса.
-$controller->Request($a_method);
+try {
+    $controller->Request($a_method);
+} catch (Throwable $t) {
+    header('location:index.php?c=errors&a=wrong_url');
+}

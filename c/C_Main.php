@@ -31,6 +31,11 @@ class C_Main extends C_SiteController
      */
     public function actionIndex()
     {
+        //Проверяем права доступа к данной странице
+        if (!in_array('USER_PRIV', $this->permissions)) {
+            $this->mErrors->wrongAuthorization();
+            header('location:index.php?c=errors&a=wrong_authorization');
+        }
         //список всех пользователей
         $this->list = $this->mUser->getUsers();
 
@@ -73,6 +78,11 @@ class C_Main extends C_SiteController
      */
     public function actionLogin()
     {
+        //Разлогиниваемся
+        if (!empty($this->user)) {
+            $this->mUser->Logout();
+            header('Location:index.php?d=main&a=login');
+        }
         //Логинимся
         if (isset($_POST['send'])) {
             if ($this->mUser->Login($_POST['u_mail'], $_POST['u_password'])) {

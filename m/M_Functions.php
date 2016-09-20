@@ -13,6 +13,7 @@ class M_Functions
     public function __construct()
     {
         $this->mysqli = M_MSQL::Instance();
+        $this->mErrors = M_Errors::Instance();
     }
 
     public static function Instance()
@@ -62,10 +63,11 @@ class M_Functions
                 if ($this->getExistentControllers($class)) {
                     $class_name = new $class;
                 } else {
+                    header('location:index.php?c=errors&a=wrong_url');
                 }
             }
         } else {
-            $class_name = new C_Main();
+            $class_name = new C_Errors();
         }
         return $class_name;
     }
@@ -95,7 +97,7 @@ class M_Functions
                 $last = mb_strtolower($last, 'UTF-8');
                 $methods = $first . $last;
             }
-            return 'action'.$methods;
+            return 'action' . $methods;
         }
         return 'actionIndex';
     }
@@ -107,6 +109,7 @@ class M_Functions
     {
         $dir = 'c';
         $files = scandir($dir);
+
         $name_controller = $name . ".php";
 
         foreach ($files as $file) {

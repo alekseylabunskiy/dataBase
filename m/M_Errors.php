@@ -18,25 +18,12 @@ class M_Errors
     //Нет прав на просмотр этой страницы
     public function wrongAuthorization()
     {
-        $text = 'Ви не маєте прав доступу до цієї сторінки';
-        if (!isset($_SESSION['wrong_auth'])) {
-            return $_SESSION['wrong_auth'] = $text;
-        }
+        return $text = 'Ви не маєте прав доступу до цієї сторінки';
     }
 
     //Введен неверный URL
     public function wrongUrl()
     {
-        $text = 'код 404. Такої сторінки не їснує!';
-        if (!isset($_SESSION['wrong_url'])) {
-            return $_SESSION['wrong_url'] = $text;
-        }
+        return $text = '404. Такої сторінки не їснує!';
     }
-    //Чистим сессии ошибок
-    public function clearErrorSessions()
-    {
-        unset($_SESSION['wrong_auth']);
-        unset($_SESSION['wrong_url']);
-    }
-
 }
