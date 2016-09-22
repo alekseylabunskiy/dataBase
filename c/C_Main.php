@@ -69,8 +69,7 @@ class C_Main extends C_SiteController
         }
 
         //Вывод на страницу
-        $this->content = $this->render('main/index.php', $vars);
-        parent::Out();
+        $this->render('main/index.php',$vars);
     }
 
     /**
@@ -90,9 +89,9 @@ class C_Main extends C_SiteController
             }
         }
 
+        //Вывод на страницу
         $vars = [];
-        $this->content = $this->render('main/_login.php', $vars);
-        parent::Out();
+        $this->render('main/_login.php', $vars);
     }
 
     /**
@@ -223,8 +222,8 @@ class C_Main extends C_SiteController
             die();
         }
 
-        $this->content = $this->render('main/_one_user.php', $vars);
-        parent::Out();
+        //Вывод на страницу
+        $this->render('main/_one_user.php', $vars);
     }
 
     /*
@@ -244,9 +243,10 @@ class C_Main extends C_SiteController
 
         $vars = ['one_person' => $this->one_person];
 
-        $this->content = $this->render('main/_view.php', $vars);
-        parent::Out();
+        //Вывод на страницу
+        $this->render('main/_view.php', $vars);
     }
+
     /*
      * Добавляем пользователя
      */
@@ -296,10 +296,10 @@ class C_Main extends C_SiteController
             //Перенапрвляем на страницу просмотра профиля
             header("location:index.php?c=main&a=view&id=$u_id");
         }
-        $vars = [];
 
-        $this->content = $this->render('main/_add_user.php', $vars);
-        parent::Out();
+        //Вывод на страницу
+        $vars = [];
+        $this->render('main/_add_user.php', $vars);
     }
     /*
      * Управление Ролями
@@ -351,8 +351,8 @@ class C_Main extends C_SiteController
             }
         }
 
-        $this->content = $this->render('main/_roles.php', $vars);
-        parent::Out();
+        //Вывод на страницу
+        $this->render('main/_roles.php', $vars);
     }
 
     /*
@@ -373,9 +373,9 @@ class C_Main extends C_SiteController
             header('location:index.php?c=main&a=roles');
         }
 
+        //Вывод на страницу
         $vars = [];
-        $this->content = $this->render('main/_create_role.php', $vars);
-        parent::Out();
+        $this->render('main/_create_role.php', $vars);
     }
 
     /*
@@ -394,9 +394,9 @@ class C_Main extends C_SiteController
             $this->oneRole = $this->mUser->getOneRole($_GET['role_id']);
         }
 
+        //Вывод на страницу
         $vars = ['oneRole' => $this->oneRole[0]];
-        $this->content = $this->render('main/_redact_role.php', $vars);
-        parent::Out();
+        $this->render('main/_redact_role.php', $vars);
     }
 
     /*
@@ -435,8 +435,6 @@ class C_Main extends C_SiteController
                 }
             }
         }
-        $vars = ['privsAndRoles' => $this->privsAndRoles[0],
-            'roles' => $this->roles];
 
         if ($this->ajax == true) {
             $r = $this->render('/ajax/tpl_new_role.php', ['stat' => $stat]);
@@ -444,8 +442,9 @@ class C_Main extends C_SiteController
             die();
         }
 
-        $this->content = $this->render('main/_privs.php', $vars);
-        parent::Out();
+        //Вывод на страницу
+        $vars = ['privsAndRoles' => $this->privsAndRoles[0], 'roles' => $this->roles];
+        $this->render('main/_privs.php', $vars);
     }
 
     /*
@@ -567,7 +566,7 @@ class C_Main extends C_SiteController
             die();
         }
 
-        $this->content = $this->render('main/_kabinet.php', $vars);
-        parent::Out();
+        //Вывод на страницу
+        $this->render('main/_kabinet.php', $vars);
     }
 }

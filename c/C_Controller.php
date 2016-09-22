@@ -19,12 +19,12 @@ abstract class C_Controller
 
     protected function setUpView($template, $vars)
     {
-        $page = $this->render($template, $vars);
+        $page = $this->setView($template, $vars);
 
         echo $page;
     }
 
-    protected function render($fileName, $vars = [])
+    protected function setView($fileName, $vars = [])
     {
         foreach ($vars as $k => $v) {
             $$k = $v;
