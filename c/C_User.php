@@ -17,7 +17,7 @@
  * @property array privsAndRoles
  * @property string json
  */
-class C_Main extends C_SiteController
+class C_User extends C_SiteController
 {
     private $name_foto;
 
@@ -55,7 +55,7 @@ class C_Main extends C_SiteController
 
             $this->mUser->deleteUser($id);
 
-            header('Location:index.php?c=main&a=index');
+            header('Location:index.php?c=user&a=index');
         }
 
         //Передаваемые данные в шаблон
@@ -65,11 +65,11 @@ class C_Main extends C_SiteController
         //logout
         if (isset($_GET['logout'])) {
             $this->mUser->Logout();
-            header("Location: index.php?c=main&a=login");
+            header("Location: index.php?c=user&a=login");
         }
 
         //Вывод на страницу
-        $this->render('main/index.php',$vars);
+        $this->render('user/index.php',$vars);
     }
 
     /**
@@ -80,18 +80,18 @@ class C_Main extends C_SiteController
         //Разлогиниваемся
         if (!empty($this->user)) {
             $this->mUser->Logout();
-            header('Location:index.php?d=main&a=login');
+            header('Location:index.php?d=user&a=login');
         }
         //Логинимся
         if (isset($_POST['send'])) {
             if ($this->mUser->Login($_POST['u_mail'], $_POST['u_password'])) {
-                header('Location: index.php?c=main&a=index');
+                header('Location: index.php?c=user&a=index');
             }
         }
 
         //Вывод на страницу
         $vars = [];
-        $this->render('main/_login.php', $vars);
+        $this->render('user/_login.php', $vars);
     }
 
     /**
@@ -189,7 +189,7 @@ class C_Main extends C_SiteController
 
             $this->mUser->UpdateUser($_POST['n_user_email'], $_POST['n_user_pass'], $_POST['new_role_user'], $user_id);
 
-            header("Location: index.php?c=main&a=view&id=$user_id");
+            header("Location: index.php?c=user&a=view&id=$user_id");
         }
         //Все роли
         $this->roles = $this->mUser->getListRoles();
@@ -217,13 +217,13 @@ class C_Main extends C_SiteController
         }
 
         if ($this->ajax == true) {
-            $r = $this->render('/ajax/tpl_new_role.php', ['stat' => $json]);
+            $r = $this->setUpView('/ajax/tpl_new_role.php', ['stat' => $json]);
             echo $r;
             die();
         }
 
         //Вывод на страницу
-        $this->render('main/_one_user.php', $vars);
+        $this->render('user/_one_user.php', $vars);
     }
 
     /*
@@ -244,7 +244,7 @@ class C_Main extends C_SiteController
         $vars = ['one_person' => $this->one_person];
 
         //Вывод на страницу
-        $this->render('main/_view.php', $vars);
+        $this->render('user/_view.php', $vars);
     }
 
     /*
@@ -294,157 +294,12 @@ class C_Main extends C_SiteController
                 $this->mImage->saveTodB($u_image, $u_id);
             }
             //Перенапрвляем на страницу просмотра профиля
-            header("location:index.php?c=main&a=view&id=$u_id");
+            header("location:index.php?c=user&a=view&id=$u_id");
         }
 
         //Вывод на страницу
         $vars = [];
-        $this->render('main/_add_user.php', $vars);
-    }
-    /*
-     * Управление Ролями
-     */
-    public function actionRoles()
-    {
-        $del_message = '';
-
-        //Проверяем права доступа к данной странице
-        if (!in_array('CAN_REDACT_ROLES', $this->permissions)) {
-            $this->mErrors->wrongAuthorization();
-            header('location:index.php?c=errors&a=wrong_authorization');
-        }
-
-        //Удаляем Роль
-        if ($this->ajax == true) {
-            if (isset($_POST['iddel'])) {
-                //Удаляем роль
-                $this->delete_result = $this->mUser->deleteRole($_POST['iddel'][0]);
-
-                if (isset($this->delete_result)) {
-                    if ($this->delete_result == false) {
-                        $del_message['text'] = 'Ви не можете видалити цю роль так як вона має привелегії та користувачів';
-                    }
-                    if ($this->delete_result == true) {
-                        //Удаляем связь в таблице parent child
-                        $this->mUser->deleteRelationParentChild($_POST['iddel'][0]);
-                    }
-                }
-
-            }
-        }
-        //Все роли
-        $listRoles = $this->mUser->getListRoles();
-
-        $vars = ['listRoles' => $listRoles,
-            'del_message' => $del_message];
-
-        if ($this->ajax == true) {
-            if ($this->delete_result == false) {
-                $r = $this->render('/ajax/tpl_new_role_table.php', ['del_message' => $del_message]);
-                echo $r;
-                die();
-            }
-            if ($this->delete_result == true) {
-                $r = $this->render('/ajax/tpl_new_roles_list.php', $vars);
-                echo $r;
-                die();
-            }
-        }
-
-        //Вывод на страницу
-        $this->render('main/_roles.php', $vars);
-    }
-
-    /*
-     * Создаем роль
-     */
-    public function actionCreateRole()
-    {
-        //Добавляем роль
-        if (isset($_POST['create_new_role'])) {
-
-            $this->mUser->createRole($_POST['name_new_role'], $_POST['description_new_role']);
-
-            //Создаем связь в Parent Child для новой роли. по умолчанию делаем ее потомком самой младшей роли
-
-            if (!empty($_POST['name_new_role'] && !empty($_POST['description_new_role']))) {
-                $this->mUser->createNewRoleRelationParentChild();
-            }
-            header('location:index.php?c=main&a=roles');
-        }
-
-        //Вывод на страницу
-        $vars = [];
-        $this->render('main/_create_role.php', $vars);
-    }
-
-    /*
-     * Редактируем роль
-     */
-    public function actionRedactRole()
-    {
-        //Обновляем роль
-        if (isset($_POST['update_role'])) {
-            $this->mUser->updateRole($_POST['name_role'], $_POST['description_role'], $_GET['role_id']);
-            header('location:index.php?c=main&a=roles');
-        }
-
-        //Одна роль
-        if (isset($_GET['role_id'])) {
-            $this->oneRole = $this->mUser->getOneRole($_GET['role_id']);
-        }
-
-        //Вывод на страницу
-        $vars = ['oneRole' => $this->oneRole[0]];
-        $this->render('main/_redact_role.php', $vars);
-    }
-
-    /*
-     * Управление привелегиями
-     */
-    public function actionPrivs()
-    {
-        //Проверяем права доступа к данной странице
-        if (!in_array('CAN_REDACT_PRIVS', $this->permissions)) {
-            $this->mErrors->wrongAuthorization();
-            header('location:index.php?c=errors&a=wrong_authorization');
-        }
-
-        $stat = [];
-        //Изменяем роль
-        if (isset($_GET['id_role'])) {
-            $this->mUser->changeRolePremission($_GET['id_role'], $_GET['priv_id']);
-        }
-
-        //Роли
-        $this->roles = $this->mUser->getListRoles();
-
-        //Роли и привелегии
-        $this->privsAndRoles = $this->mUser->getPrivsAndRoles();
-
-        //Меняем роль у привелегии
-        if ($this->ajax == true) {
-
-            if (isset($_POST['priv']) && !empty($_POST['priv']) && isset($_POST['role']) && !empty($_POST['role'])) {
-
-                $set = $this->mUser->setRoleToPriv($_POST['priv'][0], $_POST['role'][0]);
-                if ($set) {
-                    $stat['status'] = 'ok';
-                } else {
-                    $stat['status'] = 'Error';
-                }
-            }
-        }
-
-        if ($this->ajax == true) {
-            $r = $this->render('/ajax/tpl_new_role.php', ['stat' => $stat]);
-            echo $r;
-            die();
-        }
-
-        //Вывод на страницу
-        $vars = ['privsAndRoles' => $this->privsAndRoles[0], 'roles' => $this->roles];
-        $this->render('main/_privs.php', $vars);
+        $this->render('user/_add_user.php', $vars);
     }
 
     /*
@@ -561,12 +416,12 @@ class C_Main extends C_SiteController
         }
 
         if ($this->ajax == true) {
-            $r = $this->render('/ajax/tpl_new_role.php', ['stat' => $this->json]);
+            $r = $this->setUpView('/ajax/tpl_new_role.php', ['stat' => $this->json]);
             echo $r;
             die();
         }
 
         //Вывод на страницу
-        $this->render('main/_kabinet.php', $vars);
+        $this->render('user/_kabinet.php', $vars);
     }
 }

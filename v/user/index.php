@@ -45,9 +45,9 @@
                             </form>
                         </td>
                         <td>
-                            <a href="/index.php?c=main&a=single_user&id=<?php echo $list['user_id']; ?>" title="Редактировать"><span
+                            <a href="/index.php?c=user&a=single_user&id=<?php echo $list['user_id']; ?>" title="Редактировать"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="/index.php?c=main&a=index&delete_id=<?php echo $list['user_id']; ?>" title="Удалить"><span
+                            <a href="/index.php?c=user&a=index&delete_id=<?php echo $list['user_id']; ?>" title="Удалить"><span
                                     class="glyphicon glyphicon-trash conf-delete"></span></a>
                         </td>
                     <?php endif;

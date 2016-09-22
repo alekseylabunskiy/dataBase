@@ -16,7 +16,7 @@ $('#send_file').click(function (event) {
     $.each( files, function( key, value ){
         data.append( key, value );
     });
-    var url = 'index.php?c=main&a=single_user';
+    var url = 'index.php?c=user&a=single_user';
 
     $.ajax({
         type: 'POST',
@@ -60,7 +60,7 @@ $('#send_file').click(function (event) {
 });
 
 $('.modal-footer').on('click','#add_foto_to_user',function () {
-    var url = 'index.php?c=main&a=single_user';
+    var url = 'index.php?c=user&a=single_user';
     var status = 'ok';
     var data = {
         addSelectedFoto: status
@@ -116,7 +116,7 @@ $('#archiveImages').on('click','.deleteImg',function () {
     //название изображения
     var img = src.match(/[a-z0-9]{20,50}.[a-z]{3}/);
 
-    var url = 'index.php?c=main&a=single_user&id=' + id;
+    var url = 'index.php?c=user&a=single_user&id=' + id;
     var data = {
         deletedImageName: img
     };

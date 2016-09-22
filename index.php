@@ -1,11 +1,14 @@
 <?php
+//Выводим ошибки
 error_reporting(-1);
 ini_set('display_errors', 'On');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
+//Запускаем сессии
 session_start();
 
+//Тайм зона
 date_default_timezone_set('Europe/Kiev');
 
 define("BASEPATH", dirname(__FILE__) . '/');
@@ -27,7 +30,7 @@ if (isset($_GET['c']) && isset($_GET['a'])) {
     $c_controller = $_GET['c'];
     $c_method = $_GET['a'];
 } else {
-    $c_controller = 'main';
+    $c_controller = 'user';
     $c_method = 'login';
 }
 //Подключаем модель

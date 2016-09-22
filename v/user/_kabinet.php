@@ -12,7 +12,7 @@
     </div>
     <div class="col-lg-10 col-md-offset-1">
         <br>
-        <form role="form" action="/index.php?c=main&a=view&id=<?php if (isset($one_person)) {
+        <form role="form" action="/index.php?c=user&a=view&id=<?php if (isset($one_person)) {
             echo $one_person['user_id'];
         } ?>" method="post">
             <div class="form-group">
@@ -47,7 +47,7 @@
 <div class="row">
     <div id="imageForm" class="collapse">
         <form class="col-md-offset-1" role="form" enctype="multipart/form-data"
-              action="/index.php?c=main&a=single_user&id=<?php if (isset($one_person)) {
+              action="/index.php?c=user&a=single_user&id=<?php if (isset($one_person)) {
                   echo $one_person['user_id'];
               } ?>" method="post">
             <div class="form-group col-lg-3">
@@ -81,7 +81,7 @@
                         <?php foreach ($user_images as $image): ?>
                             <div id="old_imgs" class="col-sm-4">
                                 <div class="well">
-                                    <a href="/index.php?c=main&a=single_user&id=<?php if (isset($one_person)) {
+                                    <a href="/index.php?c=user&a=single_user&id=<?php if (isset($one_person)) {
                                         echo $one_person['user_id'];
                                     } ?>&image_id=<?php echo $image['name_image']; ?>"><img id="old_i"
                                                                                             class="img img-responsive o_foto"

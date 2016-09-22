@@ -2,14 +2,14 @@
     <h2>Керування ролями</h2>
 </div>
 <div class="col-md-12 text-right">
-    <a href="/index.php?c=main&a=create_role">
+    <a href="/index.php?c=roles&a=create_role">
         <button class="btn btn-info">Створити Роль</button>
     </a>
 </div>
 <div class="col-md-12">
     <h3></h3>
 </div>
-<div id="result">
+<div id="result_m">
     <div id="old_table" class="row">
         <div class="col-md-12">
             <table class="table  table-bordered table-striped text-center">
@@ -27,7 +27,7 @@
                             <td class="col-md-2"><?php echo $list['role_name']; ?></td>
                             <td class="col-md-9"><?php echo $list['description']; ?></td>
                             <td class="col-md-1"><a
-                                    href="/index.php?c=main&a=redact_role&role_id=<?php echo $list['role_id']; ?>"
+                                    href="/index.php?c=roles&a=redact_role&role_id=<?php echo $list['role_id']; ?>"
                                     title="Редактировать"><span
                                         class="glyphicon glyphicon-pencil"></span></a>
                                 <a class="delete" data-toggle="modal" data-target="#myModal"

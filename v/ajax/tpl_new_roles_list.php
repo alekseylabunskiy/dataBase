@@ -15,11 +15,11 @@
                         <td class="col-md-2"><?php echo $list['role_name']; ?></td>
                         <td class="col-md-9"><?php echo $list['description']; ?></td>
                         <td class="col-md-1"><a
-                                href="/index.php?c=main&a=redact_role&role_id=<?php echo $list['role_id']; ?>"
+                                href="/index.php?c=roles&a=redact_role&role_id=<?php echo $list['role_id']; ?>"
                                 title="Редактировать"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
                             <a class="delete" data-toggle="modal" data-target="#myModal"
-                               href="#delete_id=<?php echo $list['role_id']; ?>"
+                               href="delete_id=<?php echo $list['role_id']; ?>"
                                title="Удалить"><span
                                     class="glyphicon glyphicon-trash roles-delete"></span></a>
                         </td>
@@ -30,3 +30,5 @@
         </table>
     </div>
 </div>
+<?php
+?>

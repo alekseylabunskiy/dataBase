@@ -42,9 +42,9 @@ class C_SiteController extends C_Controller
         $this->ajax = $this->mFunctions->getIsAjaxRequest();
     }
 
-    public function render($template,$varss)
+    public function render($template,$var)
     {
-        $this->content = $this->setView($template, $varss);
+        $this->content = $this->setView($template, $var);
 
         $vars = ['content' => $this->content, 'title' => $this->title, 'user' => $this->user, 'permissions' => $this->permissions];
         parent::setUpView('layouts/main.php', $vars);
