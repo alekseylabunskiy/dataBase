@@ -24,8 +24,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="" disabled><?php if (isset($user)) echo $user['user_name']; ?></a></li>
-            <li><a href="/index.php?c=login&a=index&logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
-            </li>
+            <li><a href="/index.php?c=login&a=logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
         </ul>
     </div>
 </nav>

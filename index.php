@@ -43,5 +43,5 @@ $a_method = $controllers->getMethod($c_method);
 try {
     $controller->Request($a_method);
 } catch (Throwable $t) {
-    header('location:index.php?c=errors&a=wrong_url');
+    $controllers->Redirect(['c' => 'errors','a' => 'wrong_url']);
 }

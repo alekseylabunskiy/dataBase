@@ -34,13 +34,37 @@ class C_User extends C_SiteController
         //список всех пользователей
         $this->list = $this->mUser->getUsers();
 
+        //Передаваемые данные в шаблон
+        $vars = ['list_users' => $this->list,
+            'permissions' => $this->permissions,];
+
+        //Вывод на страницу
+        $this->render('user/index.php', $vars);
+    }
+
+    /*
+     * Меняем статус пользователя
+     */
+    public function actionStatus()
+    {
+        $status = [];
         //меняем статус пользователя ajax запросом
         if ($this->ajax == true) {
             if (isset($_POST['condition']) && isset($_POST['id']) && !empty($_POST['condition']) && !empty($_POST['id'])) {
-                $this->mUser->setStatus($_POST['id'], $_POST['condition']);
-            }
-        }
+                $stat = $this->mUser->setStatus($_POST['id'], $_POST['condition']);
 
+                $status['change'] = $stat;
+            }
+
+            $this->setUpView('/ajax/tpl_json_data.php', ['json' => $status]);
+        }
+    }
+
+    /*
+     * Удаляем пользователя
+     */
+    public function actionDeleteUser()
+    {
         //Удаляем пользователя, и им загруженные фото. (удаление фото настроено только из двух папок, /originals/ и /resized/100).
         //При появлении других папок с изображениями настроить пути удаления в функции deleteUser($id).
 
@@ -50,21 +74,8 @@ class C_User extends C_SiteController
 
             $this->mUser->deleteUser($id);
 
-            header('Location:index.php?c=user&a=index');
+            $this->mFunctions->Redirect(['c' => 'user','a' => 'index']);
         }
-
-        //Передаваемые данные в шаблон
-        $vars = ['list_users' => $this->list,
-            'permissions' => $this->permissions,];
-
-        //logout
-        if (isset($_GET['logout'])) {
-            $this->mUser->Logout();
-            header("Location: index.php?c=login&a=index");
-        }
-
-        //Вывод на страницу
-        $this->render('user/index.php', $vars);
     }
 
     /**
@@ -161,8 +172,8 @@ class C_User extends C_SiteController
         if (isset($_POST['u_send'])) {
 
             $this->mUser->UpdateUser($_POST['n_user_email'], $_POST['n_user_pass'], $_POST['new_role_user'], $user_id);
+            $this->mFunctions->Redirect(['c' => 'user','a' => 'view','id' => $user_id]);
 
-            header("Location: index.php?c=user&a=view&id=$user_id");
         }
         //Все роли
         $this->roles = $this->mUser->getListRoles();
@@ -209,7 +220,8 @@ class C_User extends C_SiteController
         //Удаляем пользователя
         if (isset($_GET['delete_id'])) {
             $this->mysqli->Delete('users', "user_id = {$_GET['delete_id']}");
-            header('Location:index.php?c=main_list');
+
+            $this->mFunctions->Redirect(['c' => 'main','a' => 'index']);
         }
         //Список рараметров одного пользователя
         $this->one_person = $this->mUser->getOneUser($user_id);
@@ -261,8 +273,10 @@ class C_User extends C_SiteController
             if ($u_image != 'avatar.png') {
                 $this->mImage->saveTodB($u_image, $u_id);
             }
+
             //Перенапрвляем на страницу просмотра профиля
-            header("location:index.php?c=user&a=view&id=$u_id");
+            $this->mFunctions->Redirect(['c' => 'user','a' => 'view','id' => $u_id]);
+
         }
 
         //Вывод на страницу
@@ -366,7 +380,7 @@ class C_User extends C_SiteController
 
             $this->mUser->UpdateUser($_POST['n_user_email'], $_POST['n_user_pass'], $_POST['new_role_user'], $user_id);
 
-            header("Location: index.php?c=view&id=$user_id");
+            $this->mFunctions->Redirect(['a' => 'user','c' => 'view','id' => '$user_id']);
         }
 
         //пользователь кабинета

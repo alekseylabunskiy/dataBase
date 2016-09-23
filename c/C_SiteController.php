@@ -11,6 +11,7 @@
  * @property bool ajax
  * @property M_Image mImage
  * @property M_Errors mErrors
+ * @property bool rights
  */
 class C_SiteController extends C_Controller
 {
@@ -39,8 +40,11 @@ class C_SiteController extends C_Controller
         $this->permissions = $this->mUser->getAllPrivsCurrentUser($this->user['role_id']);
 
         //Проверяем права доступа к страницам
-        if (!empty($_GET['c']) && !empty($_GET['a'])) {
-            $this->mFunctions->getAccessToPage($this->permissions, $_GET['c'], $_GET['a']);
+        if (!empty($_GET['c']) && !empty($_GET['a']) && !empty($this->permissions)) {
+            $this->rights = $this->mFunctions->getAccessToPage($this->permissions, $_GET['c'], $_GET['a']);
+            if ($this->rights == false) {
+                $this->mFunctions->Redirect(['c' => 'login','a' => 'index']);
+            }
         }
         //проверяем на ajax запрос
         $this->ajax = $this->mFunctions->getIsAjaxRequest();

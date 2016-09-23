@@ -70,7 +70,7 @@ class C_Roles extends C_SiteController
             if (!empty($_POST['name_new_role'] && !empty($_POST['description_new_role']))) {
                 $this->mUser->createNewRoleRelationParentChild();
             }
-            header('location:index.php?c=roles&a=index');
+            $this->mFunctions->Redirect(['c' => 'roles','a' => 'index']);
         }
 
         //Вывод на страницу
@@ -86,7 +86,7 @@ class C_Roles extends C_SiteController
         //Обновляем роль
         if (isset($_POST['update_role'])) {
             $this->mUser->updateRole($_POST['name_role'], $_POST['description_role'], $_GET['role_id']);
-            header('location:index.php?c=roles&a=index');
+            $this->mFunctions->Redirect(['c' => 'roles','a' => 'index']);
         }
 
         //Одна роль

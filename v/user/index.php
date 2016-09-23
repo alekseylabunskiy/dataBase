@@ -35,7 +35,7 @@
                 <?php if (isset($permissions)) {
                     if (in_array('CAN_CHANGE_USER_STATUS', $permissions)): ?>
                         <td>
-                            <form action="/index.php?c=main_list" method="get">
+                            <form action="/index.php?c=main&c=index" method="get">
                                 <div class="checkbox">
                                     <label for="user_status">
                                         <input class="status_user" id="<?php echo $list['user_id']; ?>" type="checkbox"
@@ -47,7 +47,7 @@
                         <td>
                             <a href="/index.php?c=user&a=single_user&id=<?php echo $list['user_id']; ?>" title="Редактировать"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="/index.php?c=user&a=index&delete_id=<?php echo $list['user_id']; ?>" title="Удалить"><span
+                            <a href="/index.php?c=user&a=delete_user&delete_id=<?php echo $list['user_id']; ?>" title="Удалить"><span
                                     class="glyphicon glyphicon-trash conf-delete"></span></a>
                         </td>
                     <?php endif;

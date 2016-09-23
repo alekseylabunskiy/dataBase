@@ -8,7 +8,7 @@ $('.status_user').click(function () {
 
 function doAjax(condition, id) {
 
-    var url = 'index.php?c=user&a=index';
+    var url = 'index.php?c=user&a=status';
 
     setTimeout(function () {
         var data = {
@@ -20,7 +20,6 @@ function doAjax(condition, id) {
             url: url,
             data: data,
             success: function (sample) {
-
             },
             error: function (jqXHR, exception) {
                 if (jqXHR.status === 0) {

@@ -62,8 +62,6 @@ class M_Functions
                 $class = 'C_' . $gets;
                 if ($this->getExistentControllers($class)) {
                     $class_name = new $class;
-                } else {
-                    header('location:index.php?c=errors&a=wrong_url');
                 }
             }
         } else {
@@ -151,21 +149,39 @@ class M_Functions
         if (!empty($user_permissions) && !empty($controller) && !empty($method)) {
 
             if ($controller == 'user' && !in_array('USER_PRIV', $user_permissions)) {
-                header('location:index.php?c=login&a=index');
-                die();
+                return false;
             }
             if ($controller == 'roles' && !in_array('CAN_REDACT_ROLES', $user_permissions)) {
-                header('location:index.php?c=login&a=index');
-                die();
+                return false;
             }
             if ($controller == 'privs' && !in_array('CAN_REDACT_PRIVS', $user_permissions)) {
-                header('location:index.php?c=login&a=index');
-                die();
+                return false;
             }
             if ($method == 'add_user' && !in_array('CAN_REDACT_USERS', $user_permissions)) {
-                header('location:index.php?c=login&a=index');
-                die();
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * Метод редиректа
+     */
+
+    public function Redirect($params)
+    {
+        $get = [];
+        $r = '';
+        if (!empty($params)) {
+            foreach ($params as $key => $value) {
+                $r .= $key . "=" . $value . "&";
+                $length = strlen($r);
+                $get[0] = substr($r, 0, $length - 1);
             }
         }
+
+        header("location:index.php?" . $get[0]);
+        die();
     }
 }
