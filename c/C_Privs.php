@@ -12,12 +12,6 @@ class C_Privs extends C_SiteController
      */
     public function actionIndex()
     {
-        //Проверяем права доступа к данной странице
-
-        if (!in_array('CAN_REDACT_PRIVS', $this->permissions)) {
-            $this->mErrors->wrongAuthorization();
-            header('location:index.php?c=errors&a=wrong_authorization');
-        }
         $stat = [];
         //Изменяем роль
         if (isset($_GET['id_role'])) {

@@ -38,11 +38,16 @@ class C_SiteController extends C_Controller
         //Проверяем разрешения пользователя
         $this->permissions = $this->mUser->getAllPrivsCurrentUser($this->user['role_id']);
 
+        //Проверяем права доступа к страницам
+        if (!empty($_GET['c']) && !empty($_GET['a'])) {
+            $this->mFunctions->getAccessToPage($this->permissions, $_GET['c'], $_GET['a']);
+        }
         //проверяем на ajax запрос
         $this->ajax = $this->mFunctions->getIsAjaxRequest();
+
     }
 
-    public function render($template,$var)
+    public function render($template, $var)
     {
         $this->content = $this->setView($template, $var);
 

@@ -14,12 +14,6 @@ class C_Roles extends C_SiteController
     {
         $del_message = '';
 
-        //Проверяем права доступа к данной странице
-        if (!in_array('CAN_REDACT_ROLES', $this->permissions)) {
-            $this->mErrors->wrongAuthorization();
-            header('location:index.php?c=errors&a=wrong_authorization');
-        }
-
         //Удаляем Роль
         if ($this->ajax == true) {
             if (isset($_POST['iddel'])) {
@@ -41,16 +35,16 @@ class C_Roles extends C_SiteController
         //Все роли
         $listRoles = $this->mUser->getListRoles();
 
-        $vars = ['listRoles' => $listRoles,'ajax' => $this->ajax];
+        $vars = ['listRoles' => $listRoles, 'ajax' => $this->ajax];
 
         if ($this->ajax == true) {
 
-            if ($this->delete_result  == true) {
+            if ($this->delete_result == true) {
                 echo $this->setUpView('ajax/tpl_new_roles_list.php', $vars);
                 die();
             }
             if ($this->delete_result == false) {
-                $this->setUpView('/ajax/tpl_new_roles_table.php', ['del_message' => $del_message]);
+                $this->setUpView('ajax/tpl_new_role_table.php', ['del_message' => $del_message]);
                 die();
 
             }
@@ -60,6 +54,7 @@ class C_Roles extends C_SiteController
             $this->render('roles/_roles.php', $vars);
         }
     }
+
     /*
     * Создаем роль
     */

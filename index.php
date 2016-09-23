@@ -30,8 +30,8 @@ if (isset($_GET['c']) && isset($_GET['a'])) {
     $c_controller = $_GET['c'];
     $c_method = $_GET['a'];
 } else {
-    $c_controller = 'user';
-    $c_method = 'login';
+    $c_controller = 'login';
+    $c_method = 'index';
 }
 //Подключаем модель
 $controllers = new M_Functions();

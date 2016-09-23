@@ -35,7 +35,7 @@ class M_Users
 
     public function ClearSessions()
     {
-        $min = date('Y-m-d H:i:s', time() - 3600 * 24);
+        $min = date('Y-m-d H:i:s', time() - 3600 * 4);
         $t = "time_last < '%s'";
         $where = sprintf($t, $min);
         $this->msql->Delete('sessions', $where);

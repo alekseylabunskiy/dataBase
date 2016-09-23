@@ -71,6 +71,26 @@ class M_Functions
         }
         return $class_name;
     }
+
+    public function getExistentControllers($name)
+    {
+        $dir = 'c';
+        $files = scandir($dir);
+
+        $name_controller = $name . ".php";
+
+        foreach ($files as $file) {
+            if ($file == $name_controller) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Функция проверки наличия контроллера
+     */
+
     public function getMethod($c_method)
     {
         if (!empty($c_method)) {
@@ -102,24 +122,6 @@ class M_Functions
         return 'actionIndex';
     }
 
-    /*
-     * Функция проверки наличия контроллера
-     */
-    public function getExistentControllers($name)
-    {
-        $dir = 'c';
-        $files = scandir($dir);
-
-        $name_controller = $name . ".php";
-
-        foreach ($files as $file) {
-            if ($file == $name_controller) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public function Clean($text)
     {
         $quotes = array("\x27", "\x22", "\x60", "\t", "\n", "\r", "*", "%", "<", ">", "?", "!");
@@ -139,5 +141,31 @@ class M_Functions
     public function getIsAjaxRequest()
     {
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
+
+    /*
+     * Функция проверки прав доступа к страницам
+     */
+    public function getAccessToPage($user_permissions, $controller, $method)
+    {
+        if (!empty($user_permissions) && !empty($controller) && !empty($method)) {
+
+            if ($controller == 'user' && !in_array('USER_PRIV', $user_permissions)) {
+                header('location:index.php?c=login&a=index');
+                die();
+            }
+            if ($controller == 'roles' && !in_array('CAN_REDACT_ROLES', $user_permissions)) {
+                header('location:index.php?c=login&a=index');
+                die();
+            }
+            if ($controller == 'privs' && !in_array('CAN_REDACT_PRIVS', $user_permissions)) {
+                header('location:index.php?c=login&a=index');
+                die();
+            }
+            if ($method == 'add_user' && !in_array('CAN_REDACT_USERS', $user_permissions)) {
+                header('location:index.php?c=login&a=index');
+                die();
+            }
+        }
     }
 }

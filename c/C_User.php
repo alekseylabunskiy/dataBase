@@ -31,11 +31,6 @@ class C_User extends C_SiteController
      */
     public function actionIndex()
     {
-        //Проверяем права доступа к данной странице
-        if (!in_array('USER_PRIV', $this->permissions)) {
-            $this->mErrors->wrongAuthorization();
-            header('location:index.php?c=errors&a=wrong_authorization');
-        }
         //список всех пользователей
         $this->list = $this->mUser->getUsers();
 
@@ -65,33 +60,11 @@ class C_User extends C_SiteController
         //logout
         if (isset($_GET['logout'])) {
             $this->mUser->Logout();
-            header("Location: index.php?c=user&a=login");
+            header("Location: index.php?c=login&a=index");
         }
 
         //Вывод на страницу
-        $this->render('user/index.php',$vars);
-    }
-
-    /**
-     *  Страница логина
-     */
-    public function actionLogin()
-    {
-        //Разлогиниваемся
-        if (!empty($this->user)) {
-            $this->mUser->Logout();
-            header('Location:index.php?d=user&a=login');
-        }
-        //Логинимся
-        if (isset($_POST['send'])) {
-            if ($this->mUser->Login($_POST['u_mail'], $_POST['u_password'])) {
-                header('Location: index.php?c=user&a=index');
-            }
-        }
-
-        //Вывод на страницу
-        $vars = [];
-        $this->render('user/_login.php', $vars);
+        $this->render('user/index.php', $vars);
     }
 
     /**
@@ -253,11 +226,6 @@ class C_User extends C_SiteController
     public function actionAddUser()
     {
         $u_image = '';
-        //Проверяем права доступа к данной странице
-        if (!in_array('CAN_REDACT_USERS', $this->permissions)) {
-            $this->mErrors->wrongAuthorization();
-            header('location:index.php?c=errors&a=wrong_authorization');
-        }
         //создаем пользователя
         if (isset($_POST['create_user'])) {
 
@@ -318,7 +286,7 @@ class C_User extends C_SiteController
         // Меняем фото при выборе ее из архива
         if (isset($_GET['image_id'])) {
             $id = $_GET['image_id'];
-            $this->mUser->updateItem('users', ['user_avatar' => $id], 'user_id ='.$user_id);
+            $this->mUser->updateItem('users', ['user_avatar' => $id], 'user_id =' . $user_id);
         }
         //загружаем файлы
         if ($this->ajax == true) {
@@ -389,7 +357,7 @@ class C_User extends C_SiteController
             $name_foto = $_POST['deletedImageName'][0];
             $name_foto = trim($name_foto);
 
-            $this->mUser->deleteItem('images',"name_image = '$name_foto'");
+            $this->mUser->deleteItem('images', "name_image = '$name_foto'");
 
             $this->mImage->deleteSelectedImage($name_foto);
         }
@@ -407,10 +375,10 @@ class C_User extends C_SiteController
         //фото пользователя
         $this->user_images = $this->mUser->getUserImages($user_id);
 
-        $vars = ['one_person' => $this->one_person,'user_images' => $this->user_images ];
+        $vars = ['one_person' => $this->one_person, 'user_images' => $this->user_images];
 
         if (isset($_POST['deletedImageName'])) {
-            $r = $this->render('/ajax/tpl_new_table_old_imgs.php',$vars);
+            $r = $this->render('/ajax/tpl_new_table_old_imgs.php', $vars);
             echo $r;
             die();
         }
