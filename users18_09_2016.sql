@@ -114,7 +114,7 @@ INSERT INTO `privs2roles` VALUES (1,1,1),(2,5,1),(3,2,2),(4,3,3),(5,4,4);
 UNLOCK TABLES;
 
 --
--- Table structure for table `roles`
+-- Table structure for table `role`
 --
 
 DROP TABLE IF EXISTS `roles`;
@@ -130,13 +130,13 @@ CREATE TABLE `roles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `roles`
+-- Dumping data for table `role`
 --
 
 LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
 INSERT INTO `roles` VALUES (1,'root','може керувати ролями та привілегіями'),(2,'admin','може додавати, переглядати список, видаляти і редагувати користувачів'),(3,'moderator','може переглядати список користувачів, змінювати статус користувача'),(4,'user','може тільки переглядати користувачів і сторінку власного профілю');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

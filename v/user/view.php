@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-lg-10 col-md-offset-1">
         <div class="row">
-            <a href="/index.php?c=user&a=single_user&id=<?php if (isset($one_person)) {echo $one_person['user_id'];} ?>">
+            <a href="/index.php?c=user&a=update&id=<?php if (isset($one_person)) {echo $one_person['user_id'];} ?>">
                 <button class="btn btn-info">Редактировать</button>
             </a>
-            <a href="/index.php?c=user&a=view&delete_id=<?php if (isset($one_person)) {echo $one_person['user_id'];} ?>">
+            <a href="/index.php?c=user&a=delete&delete_id=<?php if (isset($one_person)) {echo $one_person['user_id'];} ?>">
                 <button class="btn btn-danger conf-delete">Удалить</button>
             </a>
         </div>

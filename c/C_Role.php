@@ -5,12 +5,26 @@
  * @property bool|mysqli_result delete_result
  * @property array|bool oneRole
  */
-class C_Roles extends C_SiteController
+class C_Role extends C_SiteController
 {
     /*
      * Управление Ролями
      */
     public function actionIndex()
+    {
+        //Все роли
+        $listRoles = $this->mUser->getListRoles();
+
+        $vars = ['listRoles' => $listRoles];
+
+        //Вывод на страницу
+        $this->render('role/index.php', $vars);
+    }
+
+    /*
+     * Удаляем Роль
+     */
+    public function actionDeleteRole()
     {
         $del_message = '';
 
@@ -23,42 +37,25 @@ class C_Roles extends C_SiteController
                 if (isset($this->delete_result)) {
                     if ($this->delete_result == false) {
                         $del_message['text'] = 'Ви не можете видалити цю роль так як вона має привелегії та користувачів';
+                        echo json_encode($del_message['text']);
                     }
                     if ($this->delete_result == true) {
                         //Удаляем связь в таблице parent child
                         $this->mUser->deleteRelationParentChild($_POST['iddel'][0]);
+                        //Все роли отдаем в новую таблицу
+                        $listRoles = $this->mUser->getListRoles();
+
+                        $vars = ['listRoles' => $listRoles];
+                        $this->render('ajax/tpl_new_roles_list.php', $vars,true);
                     }
                 }
-
             }
-        }
-        //Все роли
-        $listRoles = $this->mUser->getListRoles();
-
-        $vars = ['listRoles' => $listRoles, 'ajax' => $this->ajax];
-
-        if ($this->ajax == true) {
-
-            if ($this->delete_result == true) {
-                echo $this->setUpView('ajax/tpl_new_roles_list.php', $vars);
-                die();
-            }
-            if ($this->delete_result == false) {
-                $this->setUpView('ajax/tpl_new_role_table.php', ['del_message' => $del_message]);
-                die();
-
-            }
-        }
-        if ($this->ajax != true) {
-            //Вывод на страницу
-            $this->render('roles/_roles.php', $vars);
         }
     }
-
     /*
     * Создаем роль
     */
-    public function actionCreateRole()
+    public function actionCreate()
     {
         //Добавляем роль
         if (isset($_POST['create_new_role'])) {
@@ -70,23 +67,24 @@ class C_Roles extends C_SiteController
             if (!empty($_POST['name_new_role'] && !empty($_POST['description_new_role']))) {
                 $this->mUser->createNewRoleRelationParentChild();
             }
-            $this->mFunctions->Redirect(['c' => 'roles','a' => 'index']);
+            $this->mFunctions->redirect(['c' => 'role','a' => 'index']);
         }
 
         //Вывод на страницу
         $vars = [];
-        $this->render('roles/_create_role.php', $vars);
+        $this->render('role/create.php', $vars);
     }
 
     /*
      * Редактируем роль
      */
-    public function actionRedactRole()
+    public function actionUpdate()
     {
         //Обновляем роль
         if (isset($_POST['update_role'])) {
             $this->mUser->updateRole($_POST['name_role'], $_POST['description_role'], $_GET['role_id']);
-            $this->mFunctions->Redirect(['c' => 'roles','a' => 'index']);
+
+            $this->mFunctions->redirect(['c' => 'role','a' => 'index']);
         }
 
         //Одна роль
@@ -96,6 +94,7 @@ class C_Roles extends C_SiteController
 
         //Вывод на страницу
         $vars = ['oneRole' => $this->oneRole[0]];
-        $this->render('roles/_redact_role.php', $vars);
+
+        $this->render('role/update.php', $vars);
     }
 }

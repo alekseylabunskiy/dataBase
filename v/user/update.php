@@ -5,7 +5,7 @@
         } ?>" class="img-thumbnail" alt="Добавьте фото">
     </div>
     <div class="col-lg-10 col-md-offset-1">
-        <form role="form" action="/index.php?c=user&a=single_user&id=<?php if (isset($one_person)) {
+        <form role="form" action="/index.php?c=user&a=update_user&id=<?php if (isset($one_person)) {
             echo $one_person['user_id'];
         } ?>" method="post">
             <div class="form-group">
@@ -22,13 +22,13 @@
                 <p class="help-block"></p>
             </div>
             <?php if (isset($permissions)) {
-                if (in_array('CAN_REDACT_PRIVS', $permissions)): ?>
+                if (in_array('ROLE', $permissions)): ?>
                     <div class="form-group">
                         <label for="new_role_user">Роль</label>
                         <select class="form-control" name="new_role_user" title="new role">
                             <option value="<?php if (isset($oneRole)) {
                                 echo $oneRole[0]['role_id'];
-                            } ?>" selected><?php if (isset($oneRole)) {
+                            } ?>" selected hidden><?php if (isset($oneRole)) {
                                     echo $oneRole[0]['role_name'];
                                 } ?></option>
                             <?php if (isset($roles)): ?>
@@ -56,7 +56,7 @@
         <div class="row">
             <div id="imageForm" class="collapse">
                 <form role="form" enctype="multipart/form-data"
-                      action="/index.php?c=user&a=single_user&id=<?php if (isset($one_person)) {
+                      action="/index.php?c=user&c=user&a=update&id=<?php if (isset($one_person)) {
                           echo $one_person['user_id'];
                       } ?>" method="post">
                     <div class="form-group col-lg-3">
@@ -92,7 +92,7 @@
                         <?php foreach ($user_images as $image): ?>
                             <div id="old_imgs" class="col-sm-4">
                                 <div class="well">
-                                    <a href="/index.php?c=user&a=single_user&id=<?php if (isset($one_person)) {
+                                    <a href="/index.php?c=user&a=update_foto&id=<?php if (isset($one_person)) {
                                         echo $one_person['user_id'];
                                     } ?>&image_id=<?php echo $image['name_image']; ?>"><img id="old_i"
                                                                                             class="img img-responsive o_foto"

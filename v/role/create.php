@@ -1,7 +1,7 @@
 <div class="col-md-12 text-left height90">
     <h2>Створити нову роль</h2>
 </div>
-<form action="/index.php?c=roles&a=create_role" method="post" role="form">
+<form action="/index.php?c=role&a=create" method="post" role="form">
     <div class="form-group">
         <label for="name_new_role">Ім'я нової Ролі</label>
         <input class="form-control" type="text" name="name_new_role" title="Нова роль">

@@ -9,17 +9,21 @@
         <th class="text-center">Зареєстрованний</th>
         <th class="text-center">Активність</th>
         <th class="text-center">Редагувався</th>
-        <?php if (isset($permissions)) {
-            if (in_array('CAN_CHANGE_USER_STATUS', $permissions)): ?>
+        <?php if (isset($permissions)): ?>
+            <?php if (in_array('STATUS', $permissions)): ?>
                 <th class="text-center">Статус</th>
+            <?php endif; ?>
+        <?php endif; ?>
+        <?php if (isset($permissions)): ?>
+            <?php if (in_array('USER_UPDATE', $permissions)): ?>
                 <th class="text-center"></th>
-            <?php endif;
-        } ?>
+            <?php endif; ?>
+        <?php endif; ?>
     </tr>
     </thead>
     <tbody>
-    <?php if (isset($list_users)) {
-        foreach ($list_users as $list): ?>
+    <?php if (isset($list_users)): ?>
+        <?php foreach ($list_users as $list): ?>
             <tr>
                 <td><?php echo $list['user_id']; ?></td>
                 <td><?php echo $list['name_role']; ?></td>
@@ -32,8 +36,8 @@
                 <td><?php echo $list['user_date_register']; ?></td>
                 <td><?php echo $list['user_last_active']; ?></td>
                 <td><?php echo $list['user_time_update']; ?></td>
-                <?php if (isset($permissions)) {
-                    if (in_array('CAN_CHANGE_USER_STATUS', $permissions)): ?>
+                <?php if (isset($permissions)): ?>
+                <?php if (in_array('STATUS', $permissions)): ?>
                         <td>
                             <form action="/index.php?c=main&c=index" method="get">
                                 <div class="checkbox">
@@ -44,17 +48,21 @@
                                 </div>
                             </form>
                         </td>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php if (isset($permissions)): ?>
+                    <?php if (in_array('USER_UPDATE', $permissions)): ?>
                         <td>
-                            <a href="/index.php?c=user&a=single_user&id=<?php echo $list['user_id']; ?>" title="Редактировать"><span
+                            <a href="/index.php?c=user&a=update&id=<?php echo $list['user_id']; ?>" title="Редактировать"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="/index.php?c=user&a=delete_user&delete_id=<?php echo $list['user_id']; ?>" title="Удалить"><span
+                            <a href="/index.php?c=user&a=delete&delete_id=<?php echo $list['user_id']; ?>" title="Удалить"><span
                                     class="glyphicon glyphicon-trash conf-delete"></span></a>
                         </td>
-                    <?php endif;
-                } ?>
+                    <?php endif; ?>
+                <?php endif; ?>
             </tr>
-        <?php endforeach;
-    } ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
     </tbody>
 </table>
 

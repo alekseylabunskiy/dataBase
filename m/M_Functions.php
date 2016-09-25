@@ -148,19 +148,21 @@ class M_Functions
     {
         if (!empty($user_permissions) && !empty($controller) && !empty($method)) {
 
-            if ($controller == 'user' && !in_array('USER_PRIV', $user_permissions)) {
-                return false;
+            $controller = strtoupper($controller);
+            $method = strtoupper($method);
+
+            foreach ($user_permissions as $key => $value) {
+                if (strstr($value,"_")) {
+                    $parts = explode("_", $value);
+                    if ($parts[0] == $controller || $parts[1] == $method) {
+                        return true;
+                    }
+                } else {
+                    if ($value == $controller) {
+                        return true;
+                    }
+                }
             }
-            if ($controller == 'roles' && !in_array('CAN_REDACT_ROLES', $user_permissions)) {
-                return false;
-            }
-            if ($controller == 'privs' && !in_array('CAN_REDACT_PRIVS', $user_permissions)) {
-                return false;
-            }
-            if ($method == 'add_user' && !in_array('CAN_REDACT_USERS', $user_permissions)) {
-                return false;
-            }
-            return true;
         }
         return false;
     }
@@ -169,7 +171,7 @@ class M_Functions
      * Метод редиректа
      */
 
-    public function Redirect($params)
+    public function redirect($params)
     {
         $get = [];
         $r = '';

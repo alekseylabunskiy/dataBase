@@ -30,7 +30,7 @@ $(function () {
     }
 
     function doSet(priv, role) {
-        var url = 'index.php?c=privs&a=index';
+        var url = 'index.php?c=priv&a=update';
 
         var data = {
             priv: priv,
@@ -41,7 +41,6 @@ $(function () {
             url: url,
             data: data,
             success: function (sample) {
-
             },
             error: function (jqXHR, exception) {
                 if (jqXHR.status === 0) {

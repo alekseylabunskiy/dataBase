@@ -619,19 +619,6 @@ class M_Users
     }
 
     /*
-     * Меняем Роль у привелегии
-     */
-
-    public function changeRolePremission($role, $priv)
-    {
-
-        if (!empty($role) && !empty($priv)) {
-            return $this->msql->Update('privs2roles', ['role_id' => $role], "priv_id=$priv");
-        }
-        return false;
-    }
-
-    /*
      * Создаем роль
      */
 

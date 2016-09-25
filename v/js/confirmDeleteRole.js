@@ -27,7 +27,7 @@ $(function () {
     }
     function doSets(id) {
 
-        var url = 'index.php?c=roles&a=index';
+        var url = 'index.php?c=role&a=delete_role';
 
         var data = {
             iddel: id
@@ -40,8 +40,8 @@ $(function () {
                 try {
                     var obj = jQuery.parseJSON(sample);
 
-                    if (obj.text != '') {
-                        $('.modal-body').html(obj.text);
+                    if (obj != '') {
+                        $('.modal-body').html(obj);
                     }
                 } catch (err){
                     $('.modal-body').html('Роль видалена.Так як вона не мае користувачів та привелегій');

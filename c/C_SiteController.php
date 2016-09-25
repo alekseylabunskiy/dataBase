@@ -42,8 +42,10 @@ class C_SiteController extends C_Controller
         //Проверяем права доступа к страницам
         if (!empty($_GET['c']) && !empty($_GET['a']) && !empty($this->permissions)) {
             $this->rights = $this->mFunctions->getAccessToPage($this->permissions, $_GET['c'], $_GET['a']);
+
             if ($this->rights == false) {
-                $this->mFunctions->Redirect(['c' => 'login','a' => 'index']);
+                //Если юзера нет то редиректим на страницу логина
+               $this->mFunctions->redirect(['index']);
             }
         }
         //проверяем на ajax запрос
@@ -51,11 +53,16 @@ class C_SiteController extends C_Controller
 
     }
 
-    public function render($template, $var)
+    public function render($template, $var , $partition = false)
     {
-        $this->content = $this->setView($template, $var);
+        if ($partition == false) {
+            $this->content = $this->setView($template, $var);
 
-        $vars = ['content' => $this->content, 'title' => $this->title, 'user' => $this->user, 'permissions' => $this->permissions];
-        parent::setUpView('layouts/main.php', $vars);
+            $vars = ['content' => $this->content, 'title' => $this->title, 'user' => $this->user, 'permissions' => $this->permissions];
+            parent::setUpView('layouts/main.php', $vars);
+        }
+        if ($partition == true) {
+            return $this->setUpView($template, $var);
+        }
     }
 }
