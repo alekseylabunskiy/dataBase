@@ -171,7 +171,7 @@ class C_User extends C_SiteController
         }
 
         //Обновляем дату редактирования
-        $this->mUser->updateItem('users', ['user_time_update' => date("Y-m-d H:i:s")], "this->user_id=" . $this->user_id);
+        $this->mUser->updateItem('users', ['user_time_update' => date("Y-m-d H:i:s")], "this->user_id=" . $_SESSION['id']);
 
         unset($_SESSION['name_foto']);
 
