@@ -22,7 +22,7 @@ class C_SiteController extends C_Controller
     {
         //Подключаем модели
         $this->mysqli = M_MSQL::Instance();
-        $this->mUser = M_Users::Instance();
+        $this->mUser = M_User::Instance();
         $this->mFunctions = M_Functions::Instance();
         $this->mImage = M_Image::Instance();
         $this->mErrors = M_Errors::Instance();

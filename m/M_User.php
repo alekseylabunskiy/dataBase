@@ -4,7 +4,7 @@
  * Класс работы с данными пользователей
  */
 
-class M_Users
+class M_User
 {
     private static $instance;
     private $msql;
@@ -24,7 +24,7 @@ class M_Users
     public static function Instance()
     {
         if (self::$instance == null) {
-            self::$instance = new M_Users();
+            self::$instance = new M_User();
         }
         return self::$instance;
     }
