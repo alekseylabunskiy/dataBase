@@ -267,8 +267,6 @@ class M_Image
     public function deleteSelectedImage($image_name)
     {
         if (!empty($image_name)) {
-            //Удаляем запись в базе данных
-            $result = $this->msql->Delete('images', "name_image = $image_name");
             //Пути к файлам
             $dirPath1 = BASEPATH . '/v/files/user_avatar/originals/';
             $dirPath2 = BASEPATH . '/v/files/user_avatar/resized/100/';
@@ -280,6 +278,9 @@ class M_Image
             if (file_exists($dirPath2 . $image_name)) {
                 unlink($dirPath2 . $image_name);
             }
+            //Удаляем запись в базе данных
+            $result = $this->msql->Delete('images', "name_image = $image_name");
+
             return $result;
         }
         return false;

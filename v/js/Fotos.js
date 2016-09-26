@@ -109,9 +109,6 @@ $('#archiveImages').on('click','.deleteImg',function () {
 
     //выбираем удаляемое изображение
     var src = $(this).parent().html().toString();
-    //id пользователя
-    var id_m = src.match(/id=\d+/).toString();
-    var id = id_m.match(/\d+$/);
 
     //название изображения
     var img = src.match(/[a-z0-9]{20,50}.[a-z]{3}/);

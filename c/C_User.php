@@ -185,10 +185,12 @@ class C_User extends C_SiteController
      */
     public function actionDeleteImage()
     {
-        $name_img = $_POST['deletedImageName'][0];
-
-        $this->mImage->deleteSelectedImage($name_img);
-
+        if ($this->ajax == true) {
+            $name_img = $_POST['deletedImageName'][0];
+            $name_img = trim($name_img);
+            //Удаляем запись в базе данных
+            $this->mUser->deleteItem('images',"name_image = '$name_img'");
+        }
         //Список рараметров одного пользователя
         $this->one_person = $this->mUser->getOneUser($_SESSION['id']);
 
@@ -198,6 +200,7 @@ class C_User extends C_SiteController
         $vars = ['one_person' => $this->one_person, 'user_images' => $this->user_images];
 
         $this->render('/ajax/tpl_new_table_old_imgs.php', $vars, true);
+
     }
 
     /*

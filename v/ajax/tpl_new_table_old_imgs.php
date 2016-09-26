@@ -13,7 +13,7 @@
                     <?php foreach ($user_images as $image): ?>
                         <div id="old_imgs" class="col-sm-4">
                             <div class="well">
-                                <a href="/index.php?c=main&a=update_foto&id=<?php if (isset($one_person)) {
+                                <a href="/index.php?c=user&a=update_image&id=<?php if (isset($one_person)) {
                                     echo $one_person['user_id'];
                                 } ?>&image_id=<?php echo $image['name_image']; ?>"><img id="old_i"
                                                                                         class="img img-responsive o_foto"
