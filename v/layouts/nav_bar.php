@@ -20,7 +20,7 @@
                     <li><a href="/index.php?c=priv&a=index">Привілегії</a></li>
                 <?php endif;
             } ?>
-            <li><a href="/index.php?c=user&a=update">Кабінет</a></li>
+            <li><a href="/index.php?c=user&a=update&kab">Кабінет</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="" disabled><?php if (isset($user)) echo $user['user_name']; ?></a></li>
