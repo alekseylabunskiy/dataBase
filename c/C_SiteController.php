@@ -2,7 +2,7 @@
 
 /**
  * @property M_MSQL mysqli;
- * @property M_Users mUser;
+ * @property M_User mUser;
  * @property M_Functions mFunctions;
  * @property $content;
  * @property $title;

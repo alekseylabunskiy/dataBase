@@ -27,7 +27,7 @@ CREATE TABLE `auth_item_child` (
   `parent` varchar(45) NOT NULL,
   `child` varchar(45) NOT NULL,
   PRIMARY KEY (`id_item`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,9 +53,18 @@ CREATE TABLE `images` (
   `user_id` int(11) NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+INSERT INTO `images` VALUES (69,'57e8d93075c6b48a5ba0a7951d86a91168cd7e3b046db.jpg',2,'2016-09-26 11:15:44'),(70,'57e8d9362659d414a46ee9b6929702a20d74f2616e7c0.jpg',2,'2016-09-26 11:15:50'),(73,'57e8da0d749ffd40e64d97f0cd7a02e299a2d5a419c80.jpg',1,'2016-09-26 11:19:25'),(79,'57e8db93073b7652a6217efd0af62daf1d44f0c11927c.jpg',3,'2016-09-26 11:25:55'),(80,'57e8dbaabbcd0658db3c2532e139d2e74c310962981e5.jpg',4,'2016-09-26 11:26:18'),(81,'57e8dbbab7c50980c2dfd9caa6cb0a4eccb0de395f146.jpg',2,'2016-09-26 11:26:34'),(82,'57e8dcf5cd5a09cf62d5f2dcb1f113d8b8ba71ba904d4.jpg',1,'2016-09-26 11:31:49'),(83,'57e8e0407f19d0116353a58f0901f26c93ef47380fabb.jpg',1,'2016-09-26 11:45:52'),(84,'57e8e04d0daafd84e0cb101decfdd712f150c2a179376.png',2,'2016-09-26 11:46:05'),(85,'57e91344caf95728d3eab03f0130b3d110de77fac459f.jpg',3,'2016-09-26 15:23:32');
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `privs`
@@ -80,7 +89,7 @@ CREATE TABLE `privs` (
 
 LOCK TABLES `privs` WRITE;
 /*!40000 ALTER TABLE `privs` DISABLE KEYS */;
-INSERT INTO `privs` VALUES (1,'CAN_REDACT_ROLES','roles','може керувати ролями'),(2,'CAN_REDACT_USERS','add_user','може додавати, переглядати список, видаляти і редагувати користувачів'),(3,'CAN_CHANGE_USER_STATUS','user_status','може переглядати список користувачів, змінювати статус користувача'),(4,'USER_PRIV','main_list','може тільки переглядати користувачів і сторінку власного профілю'),(5,'CAN_REDACT_PRIVS','privs','може керувати привілегіями');
+INSERT INTO `privs` VALUES (1,'ROLE','roles','може керувати ролями'),(2,'USER_UPDATE','add_user','може додавати, переглядати список, видаляти і редагувати користувачів'),(3,'STATUS','user_status','може переглядати список користувачів, змінювати статус користувача'),(4,'USER','main_list','може тільки переглядати користувачів і сторінку власного профілю'),(5,'PRIV','privs','може керувати привілегіями');
 /*!40000 ALTER TABLE `privs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +123,7 @@ INSERT INTO `privs2roles` VALUES (1,1,1),(2,5,1),(3,2,2),(4,3,3),(5,4,4);
 UNLOCK TABLES;
 
 --
--- Table structure for table `role`
+-- Table structure for table `roles`
 --
 
 DROP TABLE IF EXISTS `roles`;
@@ -126,17 +135,17 @@ CREATE TABLE `roles` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `name` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `role`
+-- Dumping data for table `roles`
 --
 
 LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'root','може керувати ролями та привілегіями'),(2,'admin','може додавати, переглядати список, видаляти і редагувати користувачів'),(3,'moderator','може переглядати список користувачів, змінювати статус користувача'),(4,'user','може тільки переглядати користувачів і сторінку власного профілю');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'root','може керувати ролями та привілегіями'),(2,'admin','може додавати, переглядати список, видаляти і редагувати користувачів'),(3,'moderator','може переглядати список користувачів, змінювати статус користувача.'),(4,'user','може тільки переглядати користувачів і сторінку власного профілю.');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -154,8 +163,18 @@ CREATE TABLE `sessions` (
   `time_last` datetime NOT NULL,
   PRIMARY KEY (`id_session`),
   UNIQUE KEY `sid` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=821 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=938 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sessions`
+--
+
+LOCK TABLES `sessions` WRITE;
+/*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+INSERT INTO `sessions` VALUES (934,1,'USmK9M0ndb','2016-09-26 11:21:06','2016-09-26 12:34:43'),(935,3,'ifdjsLIHNz','2016-09-26 12:34:55','2016-09-26 12:34:59'),(936,2,'J0cXaehCRr','2016-09-26 12:35:10','2016-09-26 12:35:24'),(937,1,'azD1GbnGkf','2016-09-26 12:35:32','2016-09-26 16:01:49');
+/*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -176,7 +195,7 @@ CREATE TABLE `users` (
   `user_last_active` datetime NOT NULL,
   `user_time_update` datetime NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +204,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'f9eb2327784f3c18d1e84ea47a267280',1,'test','test@test.ru','57dea1348f2aa27fbc251c3999466d360ecdd0b06e33e.png',1,'2015-05-20 16:00:00','2018-06-20 16:00:00','2016-09-18 17:15:23'),(2,'0ed610b5d2394763730ec36053749047',2,'two','two@two.ua','57de47e900593d5d85d5073d42ee0fe481bbbf8a1423c.jpg',1,'2014-02-20 15:00:00','2016-05-20 16:00:00','2016-09-18 10:53:15'),(3,'0e600c26672a3316f30be63181da7446',3,'three','three@three.ua','57de48110e9642934d974e2f112248abbd8a450a26d54.jpg',1,'2025-02-20 13:00:00','2025-08-20 15:00:00','2016-09-18 10:53:55'),(4,'e97412a5a29d228e81ab6ae8656cfb78',4,'for','for@for.ua','57de9cd9b96c87253991c822f2707ce0b4754012f92ac.jpg',1,'2015-03-20 14:00:00','0000-00-00 00:00:00','2016-09-18 16:55:45'),(28,'1369bc0e8974f0bb2702a76bed62e19a',4,'efwef','test2@tesgggrg2.a','57de49b6c687b2246d1dbfd516ad8443e61144c6dfc02.jpg',1,'2016-09-17 18:29:08','0000-00-00 00:00:00','2016-09-18 11:00:56');
+INSERT INTO `users` VALUES (1,'f9eb2327784f3c18d1e84ea47a267280',1,'test','test@test.ru','57e8e0407f19d0116353a58f0901f26c93ef47380fabb.jpg',1,'2015-05-20 16:00:00','2018-06-20 16:00:00','2016-09-24 16:40:49'),(2,'0ed610b5d2394763730ec36053749047',2,'two','two@two.ua','57e8e04d0daafd84e0cb101decfdd712f150c2a179376.png',1,'2014-02-20 15:00:00','2016-05-20 16:00:00','2016-09-26 08:59:16'),(3,'0ce44545033c317ac7c358cb940c9070',3,'three','three@three.ua','57e91344caf95728d3eab03f0130b3d110de77fac459f.jpg',1,'2025-02-20 13:00:00','2025-08-20 15:00:00','2016-09-23 15:23:35'),(4,'e97412a5a29d228e81ab6ae8656cfb78',4,'for','for@for.ua','57e8dbaabbcd0658db3c2532e139d2e74c310962981e5.jpg',1,'2015-03-20 14:00:00','0000-00-00 00:00:00','2016-09-25 18:37:39');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -213,4 +232,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-18 17:18:02
+-- Dump completed on 2016-09-26 16:06:33
