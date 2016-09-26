@@ -56,6 +56,21 @@ class C_User extends C_SiteController
      */
     public function actionUpdate()
     {
+        //Отправляем обновленные данные пользователя
+        if ($this->ajax == true) {
+            $res = $this->mUser->UpdateUser($_POST['email'], $_POST['pass'], $_POST['role'], $_POST['id']);
+            if ($this->ajax == true) {
+                if ($res == true) {
+                    echo json_encode('Данні успішно збережені.');
+                    die();
+                } else {
+                    echo json_encode('Помилка! Данні не збережені!');
+                    die();
+                }
+
+            }
+        }
+
         //Все роли
         $this->roles = $this->mUser->getListRoles();
 
@@ -114,7 +129,7 @@ class C_User extends C_SiteController
     {
         //меняем статус пользователя ajax запросом
         if ($this->ajax == true) {
-            if (isset($_POST['condition']) && isset($_POST['id']) && !empty($_POST['condition']) && !empty($_POST['id'])) {
+            if (!empty($_POST['condition']) && !empty($_POST['id'])) {
 
                 $stat = $this->mUser->setStatus($_POST['id'], $_POST['condition']);
 
@@ -141,20 +156,6 @@ class C_User extends C_SiteController
     }
 
     /*
-     * Обновляем данные пользователя
-     */
-    public function actionUpdateUser()
-    {
-        //Отправляем обновленные данные пользователя
-        if (isset($_POST['u_send'])) {
-
-            $this->mUser->UpdateUser($_POST['n_user_email'], $_POST['n_user_pass'], $_POST['new_role_user'], $this->user_id);
-
-            $this->mFunctions->redirect(['c' => 'user', 'a' => 'view', 'id' => $this->user_id]);
-        }
-    }
-
-    /*
      * Обновляем фото аватара после загрузки нового фото
      */
     public function actionChangeImage()
@@ -169,9 +170,6 @@ class C_User extends C_SiteController
         if ($this->ajax == true) {
             $this->mImage->addImageToUser($_SESSION['id'],$name_f);
         }
-
-        //Обновляем дату редактирования
-        $this->mUser->updateItem('users', ['user_time_update' => date("Y-m-d H:i:s")], "this->user_id=" . $_SESSION['id']);
 
         unset($_SESSION['name_foto']);
 

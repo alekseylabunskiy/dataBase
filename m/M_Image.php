@@ -221,7 +221,8 @@ class M_Image
     public function addImageToUser($user_id, $name_img)
     {
         if (!empty($user_id) && !empty($name_img)) {
-            return $this->msql->Update('users', ['user_avatar' => $name_img], 'user_id=' . $user_id);
+
+            return $this->msql->Update('users', ['user_avatar' => $name_img,'user_time_update' => date("Y-m-d H:i:s")], 'user_id=' . $user_id);
         }
         return false;
     }

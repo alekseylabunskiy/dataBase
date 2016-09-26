@@ -50,7 +50,6 @@ class C_SiteController extends C_Controller
         }
         //проверяем на ajax запрос
         $this->ajax = $this->mFunctions->getIsAjaxRequest();
-
     }
 
     public function render($template, $var , $partition = false)

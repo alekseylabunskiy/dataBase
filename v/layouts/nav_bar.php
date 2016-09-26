@@ -11,7 +11,7 @@
                 <?php endif;
             } ?>
             <?php if (isset($permissions)) {
-                if (in_array('ROLE', $permissions)): ?>
+                if (in_array('ROLE_INDEX', $permissions)): ?>
                     <li><a href="/index.php?c=role&a=index">Ролі</a></li>
                 <?php endif;
             } ?>

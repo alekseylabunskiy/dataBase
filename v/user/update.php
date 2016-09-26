@@ -5,7 +5,7 @@
         } ?>" class="img-thumbnail" alt="Добавьте фото">
     </div>
     <div class="col-lg-10 col-md-offset-1">
-        <form role="form" action="/index.php?c=user&a=update_user&id=<?php if (isset($one_person)) {
+        <form role="form" action="/index.php?c=user&a=update&id=<?php if (isset($one_person)) {
             echo $one_person['user_id'];
         } ?>" method="post">
             <div class="form-group">
@@ -22,7 +22,7 @@
                 <p class="help-block"></p>
             </div>
             <?php if (isset($permissions)) {
-                if (in_array('ROLE', $permissions)): ?>
+                if (in_array('ROLE_INDEX', $permissions)): ?>
                     <div class="form-group">
                         <label for="new_role_user">Роль</label>
                         <select class="form-control" name="new_role_user" title="new role">
@@ -42,7 +42,7 @@
                 <?php endif;
             } ?>
 
-            <button type="submit" id="confUserData" class="btn btn-success" name="u_send">Відправити</button>
+            <button type="submit" id="confUserData" data-toggle="modal" data-target="#updateUserData" class="btn btn-success" name="u_send">Відправити</button>
         </form>
         <br>
 
@@ -119,6 +119,22 @@
                 <h4 class="modal-title">Попередження!</h4>
             </div>
             <div id="message" class="modal-body m_body"></div>
+            <div class="modal-footer">
+                <button class="btn btn-default m_mod" type="button" data-dismiss="modal">Закрити</button>
+                <span id="not_add_foto" hidden="hidden"><button class="btn btn-danger" type="button"
+                                                                data-dismiss="modal">Відхілити</button></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="updateUserData" class="modal fade text-center">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Увага!</h4>
+            </div>
+            <div id="user_upd" class="modal-body m_body"></div>
             <div class="modal-footer">
                 <button class="btn btn-default m_mod" type="button" data-dismiss="modal">Закрити</button>
                 <span id="not_add_foto" hidden="hidden"><button class="btn btn-danger" type="button"

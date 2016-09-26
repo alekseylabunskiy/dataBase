@@ -151,10 +151,16 @@ class M_Functions
             $controller = strtoupper($controller);
             $method = strtoupper($method);
 
+            $income = $controller.$method;
+
             foreach ($user_permissions as $key => $value) {
+
                 if (strstr($value,"_")) {
+
                     $parts = explode("_", $value);
-                    if ($parts[0] == $controller || $parts[1] == $method) {
+                    $priv = implode('',$parts);
+
+                    if ($priv == $income) {
                         return true;
                     }
                 } else {
