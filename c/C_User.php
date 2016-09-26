@@ -128,7 +128,7 @@ class C_User extends C_SiteController
     /*
      * Обновляем изображение пользователя из архива
      */
-    public function actionUpdateFoto()
+    public function actionUpdateImage()
     {
         // Меняем фото при выборе ее из архива
         if (isset($_GET['image_id'])) {
@@ -189,6 +189,7 @@ class C_User extends C_SiteController
             $name_img = $_POST['deletedImageName'][0];
             $name_img = trim($name_img);
             //Удаляем запись в базе данных
+            $this->mImage->deleteSelectedImage("$name_img");
             $this->mUser->deleteItem('images',"name_image = '$name_img'");
         }
         //Список рараметров одного пользователя
