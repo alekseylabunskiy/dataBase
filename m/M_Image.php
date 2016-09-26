@@ -279,7 +279,7 @@ class M_Image
                 unlink($dirPath2 . $image_name);
             }
             //Удаляем запись в базе данных
-            $result = $this->msql->Delete('images', "name_image = $image_name");
+            $result = $this->msql->Delete('images', "name_image = '$image_name'");
 
             return $result;
         }

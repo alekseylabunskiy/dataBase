@@ -190,7 +190,7 @@ class C_User extends C_SiteController
             $name_img = trim($name_img);
             //Удаляем запись в базе данных
             $this->mImage->deleteSelectedImage("$name_img");
-            $this->mUser->deleteItem('images',"name_image = '$name_img'");
+           // $this->mUser->deleteItem('images',"name_image = '$name_img'");
         }
         //Список рараметров одного пользователя
         $this->one_person = $this->mUser->getOneUser($_SESSION['id']);
