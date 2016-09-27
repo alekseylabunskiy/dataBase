@@ -44,7 +44,7 @@ class M_User
     /*
      * функция логина
      */
-    public function Login($email, $password)
+    public function Login($email, $password,$remember = true)
     {
 
         $user = $this->GetByLogin($email);

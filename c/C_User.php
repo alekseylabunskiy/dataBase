@@ -30,7 +30,7 @@ class C_User extends C_SiteController
         //Если польз. зашел в кабинет передаем его айди
 
             $this->user_id = $this->user['user_id'];
-        
+
         //Если редактируем пользователя передаем его ай ди
         if (isset($_GET['id'])) {
             $this->user_id  = $_GET['id'];
@@ -142,6 +142,9 @@ class C_User extends C_SiteController
      */
     public function actionUploadImages()
     {
+        if (isset($_GET['id_u'])) {
+            $this->user_id = $_GET['id_u'];
+        }
         $json = '';
         $sizes = array(
             '100' => ['width' => 100, 'height' => 100],
@@ -167,9 +170,6 @@ class C_User extends C_SiteController
                 $foto = $this->mImage->selectNewFoto($this->name_foto);
                 //Передаем имя изображения
                 $json['name_image'] = $foto[0]['name_image'];
-                if (!empty($_GET['id'])) {
-                    $json['id'] = $_GET['id'];
-                }
 
                 $_SESSION['name_foto'] = $json['name_image'];
             } else {
@@ -187,6 +187,9 @@ class C_User extends C_SiteController
      */
     public function actionUpdateImage()
     {
+        if (!empty($_GET['id_u'])) {
+            $this->user_id = $_GET['id_u'];
+        }
         // Меняем фото при выборе ее из архива
         if (isset($_GET['image_id'])) {
             $id = $_GET['image_id'];

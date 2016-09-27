@@ -4,7 +4,7 @@
             <div class="panel-body">
                 <form action="/index.php?c=login&a=index" method="post" role="form">
                     <div class="form-group">
-                        <input id="u_email" type="text" name="u_mail" class="form-control" placeholder="Email Address">
+                        <input id="u_email" type="text" name="email" class="form-control" placeholder="Email Address">
                         <p class="help-block"></p>
                     </div>
                     <div class="form-group">

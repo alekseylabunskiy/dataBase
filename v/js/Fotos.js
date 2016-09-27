@@ -10,13 +10,13 @@ $('input[type=file]').change(function(){
 
 $('#send_file').click(function (event) {
     event.preventDefault();
-
+    var id_user = $('#id_user').val();
     var data = new FormData();
 
     $.each( files, function( key, value ){
         data.append( key, value );
     });
-    var url = 'index.php?c=user&a=upload_images';
+    var url = 'index.php?c=user&a=upload_images&id_u=' + id_user;
 
     $.ajax({
         type: 'POST',
@@ -60,7 +60,10 @@ $('#send_file').click(function (event) {
 });
 
 $('.modal-footer').on('click','#add_foto_to_user',function () {
-    var url = 'index.php?c=user&a=update_image';
+
+    var id_user = $('#id_user').val();
+
+    var url = 'index.php?c=user&a=update_image&id_u=' + id_user;
     var status = 'ok';
     var data = {
         addSelectedFoto: status

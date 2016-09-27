@@ -56,9 +56,10 @@
         <div class="row">
             <div id="imageForm" class="collapse">
                 <form role="form" enctype="multipart/form-data"
-                      action="/index.php?c=user&c=user&a=update&id=<?php if (isset($one_person)) {
-                          echo $one_person['user_id'];
-                      } ?>" method="post">
+                      action="/index.php?c=user&a=upload_images" method="post">
+                    <input hidden title=""  type="text" id="id_user" value="<?php if (isset($one_person)) {
+                        echo $one_person['user_id'];
+                    } ?>"/><br>
                     <div class="form-group col-lg-3">
                         <input id="foto_file" type="file" name="filename"/>
                         <p class="help-block">Завантажувані фотографії повинні бути в форматі jpg,gif,png, і розміром не

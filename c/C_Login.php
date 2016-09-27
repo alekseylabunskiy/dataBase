@@ -15,9 +15,10 @@ class C_Login extends C_SiteController
             $this->mUser->Logout();
            $this->mFunctions->redirect(['c' => 'login','a' => 'index']);
         }
+
         //Логинимся
         if (isset($_POST['send'])) {
-            if ($this->mUser->Login($_POST['u_mail'], $_POST['u_password'])) {
+            if ($this->mUser->Login($_POST['email'], $_POST['u_password'])) {
                 $this->mFunctions->redirect(['c' => 'user','a' => 'index']);
             }
         }
