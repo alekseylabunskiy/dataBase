@@ -42,11 +42,9 @@ class C_SiteController extends C_Controller
         //Проверяем права доступа к страницам
         if (!empty($_GET['c']) && !empty($_GET['a']) && !empty($this->permissions)) {
             $this->rights = $this->mFunctions->getAccessToPage($this->permissions, $_GET['c'], $_GET['a']);
-
-            if ($this->rights == false) {
-                //Если юзера нет то редиректим на страницу логина
-               $this->mFunctions->redirect(['index']);
-            }
+        }
+        if (!empty($_GET['c']) && !empty($_GET['a']) && isset($this->user) && $this->user == null) {
+         //   $this->mFunctions->redirect(['c' => 'login','a' => 'index']);
         }
         //проверяем на ajax запрос
         $this->ajax = $this->mFunctions->getIsAjaxRequest();

@@ -16,7 +16,7 @@
                 <?php endif;
             } ?>
             <?php if (isset($permissions)) {
-                if (in_array('PRIV', $permissions)): ?>
+                if (in_array('PRIV_INDEX', $permissions)): ?>
                     <li><a href="/index.php?c=priv&a=index">Привілегії</a></li>
                 <?php endif;
             } ?>

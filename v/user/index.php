@@ -10,7 +10,7 @@
         <th class="text-center">Активність</th>
         <th class="text-center">Редагувався</th>
         <?php if (isset($permissions)): ?>
-            <?php if (in_array('STATUS', $permissions)): ?>
+            <?php if (in_array('USER_STATUS', $permissions)): ?>
                 <th class="text-center">Статус</th>
             <?php endif; ?>
         <?php endif; ?>
@@ -37,7 +37,7 @@
                 <td><?php echo $list['user_last_active']; ?></td>
                 <td><?php echo $list['user_time_update']; ?></td>
                 <?php if (isset($permissions)): ?>
-                <?php if (in_array('STATUS', $permissions)): ?>
+                <?php if (in_array('USER_STATUS', $permissions)): ?>
                         <td>
                             <form action="/index.php?c=main&c=index" method="get">
                                 <div class="checkbox">

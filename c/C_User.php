@@ -29,13 +29,11 @@ class C_User extends C_SiteController
 
         //Если польз. зашел в кабинет передаем его айди
         if (isset($_GET['kab'])) {
-            $_SESSION['id'] = $this->user['user_id'];
-            $this->user_id = $_SESSION['id'];
+            $this->user_id = $this->user['user_id'];
         }
         //Если редактируем пользователя передаем его ай ди
         if (isset($_GET['id'])) {
-            $_SESSION['id'] = $_GET['id'];
-            $this->user_id = $_SESSION['id'];
+            $this->user_id  = $_GET['id'];
         }
     }
 
@@ -139,69 +137,6 @@ class C_User extends C_SiteController
             }
         }
     }
-
-    /*
-     * Обновляем изображение пользователя из архива
-     */
-    public function actionUpdateImage()
-    {
-        // Меняем фото при выборе ее из архива
-        if (isset($_GET['image_id'])) {
-            $id = $_GET['image_id'];
-            $this->mUser->updateItem('users', ['user_avatar' => $id], 'user_id =' . $this->user_id);
-
-            $this->mFunctions->redirect(['c' => 'user', 'a' => 'update', 'id' => $this->user_id]);
-        }
-
-    }
-
-    /*
-     * Обновляем фото аватара после загрузки нового фото
-     */
-    public function actionChangeImage()
-    {
-        $json = [];
-        $json['name'] = $_SESSION['id'];
-        //Достаем имя фотографии
-        $name_f = $this->mImage->getSessionFoto();
-
-            $json['name_new_image'] = $name_f;
-
-        if ($this->ajax == true) {
-            $this->mImage->addImageToUser($_SESSION['id'],$name_f);
-        }
-
-        unset($_SESSION['name_foto']);
-
-        if ($this->ajax == true) {
-            echo json_encode($json);
-        }
-    }
-
-    /*
-     * Удаляем одно изображение
-     */
-    public function actionDeleteImage()
-    {
-        if ($this->ajax == true) {
-            $name_img = $_POST['deletedImageName'][0];
-            $name_img = trim($name_img);
-            //Удаляем запись в базе данных
-            $this->mImage->deleteSelectedImage("$name_img");
-           // $this->mUser->deleteItem('images',"name_image = '$name_img'");
-        }
-        //Список рараметров одного пользователя
-        $this->one_person = $this->mUser->getOneUser($_SESSION['id']);
-
-        //Все загруженные изображения пользователя
-        $this->user_images = $this->mUser->getUserImages($_SESSION['id']);
-
-        $vars = ['one_person' => $this->one_person, 'user_images' => $this->user_images];
-
-        $this->render('/ajax/tpl_new_table_old_imgs.php', $vars, true);
-
-    }
-
     /*
      * Загружаем файлы
      */
@@ -223,7 +158,7 @@ class C_User extends C_SiteController
             if (empty($errors) && !empty($this->name_foto)) {
 
                 //Сохраняем имя изображения в базу
-                $this->mImage->saveTodB($this->name_foto, $_SESSION['id']);
+                $this->mImage->saveTodB($this->name_foto, $this->user_id);
 
                 //Сохраняем изображение на сервер
                 $this->mImage->SaveResized($sizes, $this->name_foto);
@@ -232,7 +167,9 @@ class C_User extends C_SiteController
                 $foto = $this->mImage->selectNewFoto($this->name_foto);
                 //Передаем имя изображения
                 $json['name_image'] = $foto[0]['name_image'];
-                $json['id'] = $_SESSION['id'];
+                if (!empty($_GET['id'])) {
+                    $json['id'] = $_GET['id'];
+                }
 
                 $_SESSION['name_foto'] = $json['name_image'];
             } else {
@@ -243,6 +180,63 @@ class C_User extends C_SiteController
             echo json_encode($json);
         }
         $_FILES = '';
+    }
+
+    /*
+     * Обновляем изображение пользователя из архива
+     */
+    public function actionUpdateImage()
+    {
+        // Меняем фото при выборе ее из архива
+        if (isset($_GET['image_id'])) {
+            $id = $_GET['image_id'];
+            $this->mUser->updateItem('users', ['user_avatar' => $id], 'user_id =' . $this->user_id);
+
+            $this->mFunctions->redirect(['c' => 'user', 'a' => 'update', 'id' => $this->user_id]);
+        }
+
+        $json = [];
+        $json['id'] = $this->user_id;
+        $json['name'] = $this->user_id;
+        //Достаем имя фотографии
+        $name_f = $this->mImage->getSessionFoto();
+
+        $json['name_new_image'] = $name_f;
+
+        if ($this->ajax == true) {
+            $this->mImage->addImageToUser($this->user_id,$name_f);
+        }
+
+        unset($_SESSION['name_foto']);
+
+        if ($this->ajax == true) {
+            echo json_encode($json);
+        }
+
+    }
+
+    /*
+     * Удаляем одно изображение
+     */
+    public function actionDeleteImage()
+    {
+        if ($this->ajax == true) {
+            $name_img = $_POST['deletedImageName'][0];
+            $name_img = trim($name_img);
+            //Удаляем запись в базе данных
+            $this->mImage->deleteSelectedImage("$name_img");
+           // $this->mUser->deleteItem('images',"name_image = '$name_img'");
+        }
+        //Список рараметров одного пользователя
+        $this->one_person = $this->mUser->getOneUser($this->user_id);
+
+        //Все загруженные изображения пользователя
+        $this->user_images = $this->mUser->getUserImages($this->user_id);
+
+        $vars = ['one_person' => $this->one_person, 'user_images' => $this->user_images];
+
+        $this->render('/ajax/tpl_new_table_old_imgs.php', $vars, true);
+
     }
 
     /*

@@ -163,11 +163,8 @@ class M_Functions
                     if ($priv == $income) {
                         return true;
                     }
-                } else {
-                    if ($value == $controller) {
-                        return true;
-                    }
                 }
+                return false;
             }
         }
         return false;

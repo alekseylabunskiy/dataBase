@@ -33,6 +33,7 @@ if (isset($_GET['c']) && isset($_GET['a'])) {
     $c_controller = 'login';
     $c_method = 'index';
 }
+
 //Подключаем модель
 $controllers = new M_Functions();
 //Подключаем контроллеры

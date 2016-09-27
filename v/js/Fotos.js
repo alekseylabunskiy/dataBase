@@ -60,7 +60,7 @@ $('#send_file').click(function (event) {
 });
 
 $('.modal-footer').on('click','#add_foto_to_user',function () {
-    var url = 'index.php?c=user&a=change_image';
+    var url = 'index.php?c=user&a=update_image';
     var status = 'ok';
     var data = {
         addSelectedFoto: status
