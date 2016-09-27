@@ -28,9 +28,9 @@ class C_User extends C_SiteController
         parent::__construct();
 
         //Если польз. зашел в кабинет передаем его айди
-        if (isset($_GET['kab'])) {
+
             $this->user_id = $this->user['user_id'];
-        }
+        
         //Если редактируем пользователя передаем его ай ди
         if (isset($_GET['id'])) {
             $this->user_id  = $_GET['id'];
