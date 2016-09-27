@@ -54,9 +54,29 @@ class C_User extends C_SiteController
      */
     public function actionUpdate()
     {
+
+        $email = '';
+        $pass = '';
+        $role = '';
+        $id = '';
+
         //Отправляем обновленные данные пользователя
         if ($this->ajax == true) {
-            $res = $this->mUser->UpdateUser($_POST['email'], $_POST['pass'], $_POST['role'], $_POST['id']);
+            if (isset($_POST['email'])) {
+                $email = $_POST['email'];
+            }
+            if (isset($_POST['pass'])) {
+                $pass = $_POST['pass'];
+            }
+            if (isset($_POST['role'])) {
+                $role = $_POST['role'];
+            }
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+            }
+
+            $res = $this->mUser->UpdateUser($email, $pass, $role, $id);
+
             if ($this->ajax == true) {
                 if ($res == true) {
                     echo json_encode('Данні успішно збережені.');

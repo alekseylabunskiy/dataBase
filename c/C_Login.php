@@ -13,7 +13,8 @@ class C_Login extends C_SiteController
         //Разлогиниваемся
         if (!empty($this->user)) {
             $this->mUser->Logout();
-           $this->mFunctions->redirect(['c' => 'login','a' => 'index']);
+            $this->mFunctions->redirect(['c' => 'login','a' => 'index']);
+            die();
         }
 
         //Логинимся

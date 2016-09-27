@@ -151,7 +151,9 @@ class M_Functions
             $controller = strtoupper($controller);
             $method = strtoupper($method);
 
-            $income = $controller.$method;
+            $inter = $controller.$method;
+
+            $income = str_replace("_","",$inter);
 
             foreach ($user_permissions as $key => $value) {
 
